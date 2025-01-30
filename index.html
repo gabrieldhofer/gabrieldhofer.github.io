@@ -42,16 +42,22 @@
 
 		<div class=center2>
 			<h3>Gabe's Blog</h3>
-			..please bear with me as i learn some html and css.. <br><br>
+			still working on getting this setup... <br><br>
 		</div>
 		<hr></hr>
 
 		<div class=center>
 			<!-- ***************************************************** -->
-			<h3> Vimrc </h3>
+			<h3> Streamlining the git add, commit, and push combo</h3>
 			<!-- ***************************************************** -->
 			<code class="setting1">
-			:colorscheme elflord 
+				alias git_commit_msg=' read -p "creative msg: " COMMIT_MESSAGE '      
+				alias mc='  make clean '
+				alias ga='  git add . '
+				alias gc='  git commit -m "$COMMIT_MESSAGE" '
+				alias gt='  echo <git-access-token> | xclip     -selection c '
+				alias gp='  git push '
+				alias gg='  git_commit_msg ; mc ; ga ; gc ; gt ; gp ; '
 			</code>
 		</div>
 	</body>
