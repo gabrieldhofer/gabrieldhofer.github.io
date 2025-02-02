@@ -34,7 +34,7 @@
       height: 50%;
       padding: 2px;
 		}
-		.sum {
+		.codeblock {
 			display: block;
 			white-space: pre-wrap;
 		}
@@ -66,6 +66,8 @@
 
 		<div class=center>
 			<h3> This is post 2 </h3>
+			<pre>
+				<code class="codeblock">
 	#------------------------------------------------------------------------------
 	#                         creating Git repository
 	#------------------------------------------------------------------------------
@@ -84,6 +86,8 @@
 			echo "Repo NOT created"
 		fi
 	}
+			</code>
+		</pre>
 		</div>
 
 		<div class=center>
@@ -100,7 +104,7 @@
 			So, in order to commit, one simply types gg, and the commit message as prompted. <br>
 
 			<pre>
-				<code class="sum">
+				<code class="codeblock">
 	alias git_commit_msg=' read -p "creative msg: " COMMIT_MESSAGE '      
 	alias mc='  make clean '
 	alias ga='  git add . '
