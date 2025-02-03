@@ -69,24 +69,24 @@
 			<h3> Creating new Git repository with the GitHub CLI </h3>
 			<pre>
 				<code class="codeblock">
-		#------------------------------------------------------------------------------
-		#                         creating Git repository
-		#------------------------------------------------------------------------------
-		function create_private_git_repo(){
-			echo "+------------------------------------+"
-			echo "|         Creating Repository        |"
-			echo "+------------------------------------+"
-			read -p "Create repo? [Y/n]: " DECISION
-			echo "Decision: $DECISION"
-			if [ $DECISION = 'Y' ];
-			then
-				read -p "Enter new branch name (prefix): " REPO_NAME
-				gh repo create $REPO_NAME --private
-				echo "-- Repository '$REPO_NAME' created -- "
-			else
-			 echo "Repo NOT created"
-			fi
-		}
+	#------------------------------------------------------------------------------
+	#                         creating Git repository
+	#------------------------------------------------------------------------------
+	function create_private_git_repo(){
+		echo "+------------------------------------+"
+		echo "|         Creating Repository        |"
+		echo "+------------------------------------+"
+		read -p "Create repo? [Y/n]: " DECISION
+		echo "Decision: $DECISION"
+		if [ $DECISION = 'Y' ];
+		then
+			read -p "Enter new branch name (prefix): " REPO_NAME
+			gh repo create $REPO_NAME --private
+			echo "-- Repository '$REPO_NAME' created -- "
+		else
+		 echo "Repo NOT created"
+		fi
+	}
 			</code>
 		</pre>
 		</div>
