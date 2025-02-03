@@ -65,6 +65,76 @@
 		</div>
 		<hr></hr>
 
+
+
+
+		<div class=center>
+			<h3> Creating new Git repository with the GitHub CLI </h3>
+			<pre>
+				<code class="codeblock">
+
+			newbranch(){
+        #-------------------------------------------------------------+
+        # Author: Gabriel Hofer
+        # Date: 11/9/2024
+        # Modified: 11/9/2024
+        # Purpose:
+        #
+        #   To easily create branches with datetime-postfixed names.
+        #-------------------------------------------------------------+
+
+        echo "+------------------------------------+"
+        echo "|         Creating Branch            |"
+        echo "+------------------------------------+"
+
+        display_names(){
+					printf "\n++------------------------------------++\n"
+          printf "\nBRANCH_NAME: $BRANCH_NAME "
+          printf "\nBASED_ON: $BASED_ON "
+          printf "\n++------------------------------------++\n\n"
+        }
+
+        read -p "Create branch? [Y/n]: " DECISION
+				read -p "Path to repository: " REPO_LOCATION
+
+        if [ $DECISION = 'Y' ];
+        then
+          read -p "Enter new branch name (prefix): " BRANCH_NAME
+					printf "Based-On Options\n"
+					git branch
+          read -p "Enter branch on which to base new branch: " BASED_ON
+          display_names
+
+					# create branch
+          git checkout -b $BRANCH_NAME $BASED_ON
+
+					# Check if command was successfull
+          if [ $? -eq 0 ];
+          then
+						## If branch was created, goto repo and 
+						## create a directory of the branch name
+
+            sleep 0.3
+            echo "-- Branch CREATED --"
+						cd "$REPO_LOCATION"
+            mkdir $BRANCH_NAME
+            sleep 0.2
+						echo "-- Directory CREATED --"
+            cd $BRANCH_NAME
+          else
+            echo "Command failed with exit code $?"
+            sleep 0.2
+            echo "Branch NOT created"
+          fi
+        else
+					sleep 0.3
+          echo "Branch NOT created"
+        fi
+			}
+				</code>
+			</pre>
+		</div>
+
 		<div class=center>
 			<h3> Creating new Git repository with the GitHub CLI </h3>
 			<pre>
