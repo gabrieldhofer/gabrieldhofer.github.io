@@ -53,26 +53,26 @@
 
       The overall purpose of this blog is the following: <br>
       <ol>
-				<li>to learn interesting things about various topics</li>
+        <li>to learn interesting things about various topics</li>
         <li>Organize this information</li>
         <li>Share this information in an accessible way</li>
       </ol>
       <h4> TODO: </h4>
-			<ol>        
-				<li>1. Put each post on their own page </li><br>
-				<li>2. Create list of links to each individual post page </li><br>
-				<li>3. Find the right font and overall style for the blog</li><br>
-			</ol>
-			<h4> Methodology for producing blog posts </h4>
+      <ol>        
+        <li>1. Put each post on their own page </li><br>
+        <li>2. Create list of links to each individual post page </li><br>
+        <li>3. Find the right font and overall style for the blog</li><br>
+      </ol>
+      <h4> Methodology for producing blog posts </h4>
 
-			Leveraging the Feynman Technique in order to gain a deep understanding
-			of subjects. <br><br>
-			
-			The gist of the Feynman Technique is to explain a concept in as simple terms 
-			as possible. <br><br>
+      Leveraging the Feynman Technique in order to gain a deep understanding
+      of subjects. <br><br>
+      
+      The gist of the Feynman Technique is to explain a concept in as simple terms 
+      as possible. <br><br>
 
     <hr></hr>
-		</div>
+    </div>
 
 
 
@@ -110,6 +110,7 @@
           read -p "Enter new branch name (prefix): " BRANCH_NAME
           printf "Based-On Options\n"
           git branch
+
           read -p "Enter branch on which to base new branch: " BASED_ON
           display_names
 
@@ -127,8 +128,10 @@
             cd "$REPO_LOCATION"
             mkdir $BRANCH_NAME
             sleep 0.2
+
             echo "-- Directory CREATED --"
             cd $BRANCH_NAME
+
           else
             echo "Command failed with exit code $?"
             sleep 0.2
