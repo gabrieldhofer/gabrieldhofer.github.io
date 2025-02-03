@@ -88,7 +88,7 @@
         echo "+------------------------------------+"
 
         display_names(){
-					printf "\n++------------------------------------++\n"
+          printf "\n++------------------------------------++\n"
           printf "\nBRANCH_NAME: $BRANCH_NAME "
           printf "\nBASED_ON: $BASED_ON "
           printf "\n++------------------------------------++\n\n"
@@ -100,7 +100,7 @@
         if [ $DECISION = 'Y' ];
         then
           read -p "Enter new branch name (prefix): " BRANCH_NAME
-					printf "Based-On Options\n"
+          printf "Based-On Options\n"
           git branch
           read -p "Enter branch on which to base new branch: " BASED_ON
           display_names
