@@ -95,7 +95,7 @@
         }
 
         read -p "Create branch? [Y/n]: " DECISION
-				read -p "Path to repository: " REPO_LOCATION
+        read -p "Path to repository: " REPO_LOCATION
 
         if [ $DECISION = 'Y' ];
         then
@@ -105,21 +105,21 @@
           read -p "Enter branch on which to base new branch: " BASED_ON
           display_names
 
-					# create branch
+          # create branch
           git checkout -b $BRANCH_NAME $BASED_ON
 
-					# Check if command was successfull
+          # Check if command was successfull
           if [ $? -eq 0 ];
           then
-						## If branch was created, goto repo and 
-						## create a directory of the branch name
+            ## If branch was created, goto repo and 
+            ## create a directory of the branch name
 
             sleep 0.3
             echo "-- Branch CREATED --"
-						cd "$REPO_LOCATION"
+            cd "$REPO_LOCATION"
             mkdir $BRANCH_NAME
             sleep 0.2
-						echo "-- Directory CREATED --"
+            echo "-- Directory CREATED --"
             cd $BRANCH_NAME
           else
             echo "Command failed with exit code $?"
