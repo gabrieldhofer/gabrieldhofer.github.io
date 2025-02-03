@@ -148,24 +148,31 @@
       <h3> Creating new Git repository with the GitHub CLI </h3>
       <pre>
         <code class="codeblock">
-  #-------------------------------------------------------------+
-  #                 creating Git repository
-  #-------------------------------------------------------------+
-  function create_private_git_repo(){
-    echo "+------------------------------------+"
-    echo "|         Creating Repository        |"
-    echo "+------------------------------------+"
-    read -p "Create repo? [Y/n]: " DECISION
-    echo "Decision: $DECISION"
-    if [ $DECISION = 'Y' ];
-    then
-      read -p "Enter new branch name (prefix): " REPO_NAME
-      gh repo create $REPO_NAME --private
-      echo "-- Repository '$REPO_NAME' created -- "
-    else
-     echo "Repo NOT created"
-    fi
-  }
+	#-------------------------------------------------------------+
+	#                 creating Git repository
+	#-------------------------------------------------------------+
+	607 function create_private_git_repo(){
+	608   echo "+------------------------------------+"
+	609   echo "|         Creating Repository        |"
+	610   echo "+------------------------------------+"
+	611   read -p "Create repo? [Y/n]: " DECISION
+	612   echo "Decision: $DECISION"
+	613   if [ $DECISION = 'Y' ];
+	614   then
+	615     read -p "Enter new repo name (prefix): " REPO_NAME
+	616     gh repo create $REPO_NAME --private
+	617     echo "*** Repository '$REPO_NAME' created  ***"
+	618     sleep 0.5
+	619
+	620     echo "*** Cloning new repo ***"
+	621     read -p "Enter GitHub username: " GITHUB_USERNAME
+	622     git clone "https://github.com/$GITHUB_USERNAME/$REPO_NAME.git"
+	623
+	624     echo "*** Changing to directory $REPO_NAME ***"
+	625     cd $REPO_NAME                                                              626   else
+	627     echo "*** Repo NOT created ***"
+	628   fi
+	629 }
       </code>
     </pre>
     </div>
