@@ -49,9 +49,7 @@
       <h3>Gabe's Blog</h3>
       still working on getting this set up... <br><br>
 
-      Objective: <br>
-
-      The overall purpose of this blog is the following: <br>
+      <b>The overall purpose of this blog is the following: </b><br>
       <ol>
         <li>to learn interesting things about various topics</li>
         <li>Organize this information</li>
@@ -100,6 +98,8 @@
           printf "\n++------------------------------------++\n\n"
         }
 
+        EPOCH=$(date +"%s")
+
         read -p "Create branch? [Y/n]: " DECISION
         read -p "Path to repository: " REPO_LOCATION
 
@@ -112,7 +112,8 @@
           read -p "Enter branch on which to base new branch: " BASED_ON
           display_names
 
-          # create branch
+          ### create branch ###
+          BRANCH_NAME="$BASE_BRANCH_NAME-$EPOCH"
           git checkout -b $BRANCH_NAME $BASED_ON
 
           # Check if command was successfull
