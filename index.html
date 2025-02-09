@@ -79,29 +79,40 @@
 
 
 		<div class=center3>
-			<h3> Things everyone should know/learn </h3>
-			Every once in a while, I stumble across something that makes me go <br><br>
-			"Wow! I should have known this already!" <br><br>
-
-			Naturally, I begain thinking about why I didn't learn thing X at time Y,
-			and how I could have learned it sooner.<br><br>
-
-			But it's a debatable and thought provoking question.. <br><br>
-			
-			<i>Q: What is the knowledge set that everyone should know about software to 
-			have a well-rounded core understanding of.. what software is.. ? </i><br><br>
-
-			Similarly, <br><br>
-
-			<i>Q: If you were tasked with developing a curriculum for an intro to computing
-			course, what would be on the syllabus? </i><br><br>
-
-			Leaving these questions as an exercise for the reader.<br>
+			<h3> Easily commneting and uncommenting in Vim </h3>
+      <pre>
+        <code class="codeblock">
+	 29 function IsComment()
+	 30   if getline('.') =~ '^\s*//'
+	 31     return 1
+	 32   else
+	 33     return 0
+	 34   endif
+	 35 endfunction
+	 36
+	 37 function ToggleComment()
+	 42   let is_commented = IsComment()
+	 43   if ! is_commented
+	 44     normal ^i//
+	 45     normal j
+	 46   else
+	 47     normal ^xxj   
+	 48   endif
+	 49 endfunction
+	 50
+	 55 map <space> :call ToggleComment()<CR>
+				</code>
+			</pre>
 		</div>
 
 
 
-    <div class=center>
+		<div class=center3>
+			<h3> another bash post </h3>
+			put something here
+		</div>
+
+    <div class=center3>
       <h3> Creating new branch with the GitHub CLI </h3>
       <pre>
         <code class="codeblock">
@@ -174,7 +185,7 @@
       </pre>
     </div>
 
-    <div class=center>
+    <div class=center3>
       <h3> Creating new Git repository with the GitHub CLI </h3>
       <pre>
         <code class="codeblock">
@@ -208,7 +219,7 @@
     </pre>
     </div>
 
-    <div class=center>
+    <div class=center3>
       <!-- ***************************************************** -->
       <h3> Streamlining the git add, commit, and push combo</h3>
       <!-- ***************************************************** -->
