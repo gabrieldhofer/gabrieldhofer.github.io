@@ -87,6 +87,25 @@
 				</code>
 			</pre>
 
+			Push branch 
+			<pre>
+				<code>
+	git push --set-upstream origin {branch_name}
+				</code>
+			</pre>
+
+			User defined shell function, sets branch_name to current branch
+			<pre>
+				<code>
+	gpsuo ()
+	{
+		BRANCH_NAME="$(git branch | grep \* | awk '{print $2}')";
+		echo "current BRANCH_NAME: $BRANCH_NAME";
+		git push --set-upstream origin $BRANCH_NAME
+	}
+				</code>
+			</pre>
+
 			Deleting branch locally
 			<pre>
 				<code>
