@@ -79,6 +79,31 @@
 
 
 		<div class=center3>
+			<h3> Creating and Deleting branches with Git </h3> 
+			Creating new branch 
+			<pre>
+				<code class="codeblock">
+	git checkout -b {new_branch_name} {based_on_branch}
+				</code>
+			</pre>
+
+			Deleting branch locally
+			<pre>
+				<code>
+	git branch -d {local_branch}
+				</code>
+			</pre>
+
+			Deleting branch remotely 
+			<pre>
+				<code>
+	git push origin -d {remote_branch}
+				</code>
+			</pre>
+
+		</div>
+
+		<div class=center3>
 			<h3> Easily commenting and uncommenting in Vim </h3>
       <pre>
         <code class="codeblock">
