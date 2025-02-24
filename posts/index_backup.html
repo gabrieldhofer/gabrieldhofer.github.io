@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <style>
+    .center {
+      margin:auto;
+      width: 70%;
+      border: 3px solid #808080;
+      padding: 10px;
+    }
+    .center3 {
+      margin:auto;
+      width: 70%;
+      border: 3px solid #808080;
+      padding: 10px;
+      background-color: #EDBB99;
+			font-family: Calibri;
+    }
+    .center2 {
+      margin:auto;
+      width: 85%;
+      padding: 10px;
+			font-family: Calibri;
+    }
+    pre {
+      background-color: #f0f0f0;
+      padding: 1px;
+      width: 85%;
+      height: 85%;
+      text-align: left;
+      /* justify-content: left; */
+      border: 1px solid #808080;
+    }
+    body {
+      font-family: Georgia, serif;
+    }
+    .setting1 {
+      background-color: FA8072;
+      /* background-color: #f0f0f0; */
+      width: 50%;
+      border: 1px solid #808080;
+      text-align: left;
+      height: 50%;
+      padding: 2px;
+    }
+    .codeblock {
+      display: block;
+      white-space: pre-wrap;
+    }
+  </style>
+  </head>
+
+  <!-- <body bgcolor="#FFE4C4"> -->
+  <body bgcolor="#F5CBA7">
+
+    <div class=center2>
+      <h2>Gabriel's Blog</h2>
+      <b>The overall purpose of this blog is the following: </b><br>
+      <ol>
+				<li>To keep a record of anything cool </li>
+        <li>To learn about various topics</li>
+				<li>To develop code and documentation</li>
+      </ol>
+      <h4> TODO: </h4>
+        1. Put each post on their own page <br>
+        2. Create list of links to each individual post page <br>
+        3. Find the right font and overall style for the blog<br>
+      <h4> Methodology for producing blog posts </h4>
+
+      Leveraging the Feynman Technique in order to gain a deep understanding
+      of subjects. <br><br>
+      
+      The gist of the Feynman Technique is to explain a concept in as simple terms 
+      as possible. <br><br>
+
+			For understanding concepts such as Spring Boot and JPA, 
+			we will do the following:
+			<h5> Steps </h5>
+			<ol> 
+				<li> 
+					Read the documentation available online 
+				</li> 
+				<li> 
+					Write blog posts which describe this information <i>in my own words</i>
+				</li> 
+				<li> 
+					This methodology also includes <i>iterating</i> and <i>editing</i> and occasionally <i>re-writing</i> this content, improving it, adding more relevant info.
+				</li>
+				<li> 
+					The final step is implementing these concepts in our projects
+				</li>
+			</ol>
+
+    <hr></hr>
+    </div>
+
+		<div class=center3>
+			<b>2025-02-23</b> : <a href="/posts/understanding-spring-and-jpa.html"> Understanding Spring, JPA, Annotations, etc.</a>
+		</div>
+
+
+
+		<div class=center3>
+			<h3> Remembering jakarta persistence Annotations </h3>
+			Note: "The JPA was renamed as Jakarta Persistence in 2019..."
+			Source: <br><a href="https://en.wikipedia.org/wiki/Jakarta_Persistence"> Jakarta Persistence </a>
+			<a href="https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-intro/persistence-intro.html"> Jakarta EE docs </a>
+			<a href="https://www.linkedin.com/pulse/understanding-distinction-jakarta-persistence-vs-boot-vera-mara%C3%B1%C3%B3n"> This is exactly the question that i had </a><br><br>
+
+			Jakarta Persistence: <a href="https://jakartaee.github.io/persistence/latest-nightly/api/jakarta.persistence/jakarta/persistence/package-summary.html"> link </a><br><br>
+
+			Helpful Article: <a href="https://springjava.com/spring-data-jpa/what-are-jpa-annotations/"> link </a><br><br>
+
+			<ul>
+				<li><code>@Id : <a href="https://jakartaee.github.io/persistence/latest-nightly/api/jakarta.persistence/jakarta/persistence/Id.html"> documentation </a></code></li>
+				<li><code>@Entity : <a href="https://jakartaee.github.io/persistence/latest-nightly/api/jakarta.persistence/jakarta/persistence/Entity.html"> documentation </a></code></li>
+				<li><code>@GeneratedValue : <a href="https://jakartaee.github.io/persistence/latest-nightly/api/jakarta.persistence/jakarta/persistence/GeneratedValue.html"> documentation </a></code></li>
+			</ul>
+		</div>
+
+		<div class=center3>
+			<h3> Creating live bootable USB drive on Windows </h3>
+			sources:<br>
+				<a href="https://devblogs.microsoft.com/scripting/use-powershell-to-create-a-bootable-usb-drive/"> source 1 -- MS blog </a><br>
+				<a href="https://www.geeksforgeeks.org/create-windows-10-bootable-usb-stick-with-powershell/"> source 1 -- Geeks for Geeks </a><br><br>
+			1. Run the diskpart program <br>
+			<pre><code>		$ diskpart.exe </code></pre><br><br>
+
+			2. List the disks <br>
+			<pre><code>		$ list disk </code></pre>
+			<br><br>
+			
+			3. Select disk of the USB drive<br>
+			<pre><code>		$ select disk &lt;USB-disk-number&gt;
+			</code></pre><br><br>
+
+			4. Create primary partition<br>
+			<pre><code>		$ create partition primary </code></pre><br><br>
+
+			5. Select the partition that was just created: <br>
+			<pre><code>		$ select partition &lt;partition-number&gt;</code></pre><br><br>
+
+			6. Make the partition active..<br>
+			<pre><code>		$ active </code></pre><br><br>
+
+			7. Leverage Rufus to create bootable disk<br>
+			<code>
+			<b>Drive Properties</b><br>
+			Device: ...<br>
+			Boot selection: ...<br>
+			Persistence partition size: 80GB <br>
+			Partition scheme: MBR <br>
+			Target system: BIOS or UEFI <br>
+			
+			<b>Format Options</b><br>
+			Volume label: Lubuntu 24.10 amd64<br>
+			Cluster size: 32 kilobytes (Default)<br>
+			</code>
+
+		</div>
+
+
+
+		<div class=center3>
+			<h3> Creating and Deleting branches with Git </h3> 
+			<b> Original Post Date: </b> 2025-02-19 <br>
+			<b> Last Modified: </b> 2025-02-19 <br><br>
+			Creating new branch 
+			<pre>
+				<code class="codeblock">
+	git checkout -b {new_branch_name} {based_on_branch}
+				</code>
+			</pre>
+
+			Push branch 
+			<pre>
+				<code>
+	git push --set-upstream origin {branch_name}
+				</code>
+			</pre>
+
+			User defined shell function, sets branch_name to current branch
+			<pre>
+				<code>
+	gpsuo ()
+	{
+		BRANCH_NAME="$(git branch | grep \* | awk '{print $2}')";
+		echo "current BRANCH_NAME: $BRANCH_NAME";
+		git push --set-upstream origin $BRANCH_NAME
+	}
+				</code>
+			</pre>
+
+			Deleting branch locally
+			<pre>
+				<code>
+	git branch -d {local_branch} [-D]
+				</code>
+			</pre>
+
+			Deleting branch remotely 
+			<pre>
+				<code>
+	git push origin -d {remote_branch}
+				</code>
+			</pre>
+
+		</div>
+
+		<div class=center3>
+			<h3> Easily commenting and uncommenting in Vim </h3>
+      <pre>
+        <code class="codeblock">
+	 29 function IsComment()
+	 30   if getline('.') =~ '^\s*//'
+	 31     return 1
+	 32   else
+	 33     return 0
+	 34   endif
+	 35 endfunction
+	 36
+	 37 function ToggleComment()
+	 42   let is_commented = IsComment()
+	 43   if ! is_commented
+	 44     normal ^i//
+	 45     normal j
+	 46   else
+	 47     normal ^xxj   
+	 48   endif
+	 49 endfunction
+	 50
+	 55 map &lt;space&gt; :call ToggleComment()<CR>
+				</code>
+			</pre>
+		</div>
+
+    <div class=center3>
+      <h3> Creating new branch with the GitHub CLI </h3>
+      <pre>
+        <code class="codeblock">
+
+      newbranch(){
+        #-------------------------------------------------------------+
+        # Author: Gabriel Hofer
+        # Date: 11/9/2024
+        # Modified: 11/9/2024
+        # Purpose:
+        #
+        #   To easily create branches with datetime-postfixed names.
+        #-------------------------------------------------------------+
+
+        echo "+------------------------------------+"
+        echo "|         Creating Branch            |"
+        echo "+------------------------------------+"
+
+        display_names(){
+          printf "\n++------------------------------------++\n"
+          printf "\nBRANCH_NAME: $BRANCH_NAME "
+          printf "\nBASED_ON: $BASED_ON "
+          printf "\n++------------------------------------++\n\n"
+        }
+
+        EPOCH=$(date +"%s")
+
+        read -p "Create branch? [Y/n]: " DECISION
+        read -p "Path to repository: " REPO_LOCATION
+
+        if [ $DECISION = 'Y' ];
+        then
+          read -p "Enter new branch name (prefix): " BRANCH_NAME
+          printf "Based-On Options\n"
+          git branch
+
+          read -p "Enter branch on which to base new branch: " BASED_ON
+          display_names
+
+          ### create branch ###
+          BRANCH_NAME="$BASE_BRANCH_NAME-$EPOCH"
+          git checkout -b $BRANCH_NAME $BASED_ON
+
+          # Check if command was successfull
+          if [ $? -eq 0 ];
+          then
+            ## If branch was created, goto repo and 
+            ## create a directory of the branch name
+
+            sleep 0.3
+            echo "-- Branch CREATED --"
+            cd "$REPO_LOCATION"
+            mkdir $BRANCH_NAME
+            sleep 0.2
+
+            echo "-- Directory CREATED --"
+            cd $BRANCH_NAME
+
+          else
+            echo "Command failed with exit code $?"
+            sleep 0.2
+            echo "Branch NOT created"
+          fi
+        else
+          sleep 0.3
+          echo "Branch NOT created"
+        fi
+      }
+        </code>
+      </pre>
+    </div>
+
+    <div class=center3>
+      <h3> Creating new Git repository with the GitHub CLI </h3>
+      <pre>
+        <code class="codeblock">
+	#-------------------------------------------------------------+
+	#                 creating Git repository
+	#-------------------------------------------------------------+
+	607 function create_private_git_repo(){
+	608   echo "+------------------------------------+"
+	609   echo "|         Creating Repository        |"
+	610   echo "+------------------------------------+"
+	611   read -p "Create repo? [Y/n]: " DECISION
+	612   echo "Decision: $DECISION"
+	613   if [ $DECISION = 'Y' ];
+	614   then
+	615     read -p "Enter new repo name (prefix): " REPO_NAME
+	616     gh repo create $REPO_NAME --private
+	617     echo "*** Repository '$REPO_NAME' created  ***"
+	618     sleep 0.5
+	619
+	620     echo "*** Cloning new repo ***"
+	621     read -p "Enter GitHub username: " GITHUB_USERNAME
+	622     git clone "https://github.com/$GITHUB_USERNAME/$REPO_NAME.git"
+	623
+	624     echo "*** Changing to directory $REPO_NAME ***"
+	625     cd $REPO_NAME         
+	626   else
+	627     echo "*** Repo NOT created ***"
+	628   fi
+	629 }
+      </code>
+    </pre>
+    </div>
+
+    <div class=center3>
+      <!-- ***************************************************** -->
+      <h3> Streamlining the git add, commit, and push combo</h3>
+      <!-- ***************************************************** -->
+      I wanted to streamline the git add, git commit, and git push 
+      commands. <br><br>
+
+      These aliases each require 2 key-presses (except for the commit message one).<br><br>
+
+      The <code>gg</code> alias combines all of the previous aliases. <br><br>
+
+      So, in order to commit, one simply types gg, and the commit message as prompted. <br>
+
+      <pre>
+        <code class="codeblock">
+  alias git_commit_msg=' read -p "creative msg: " COMMIT_MESSAGE '      
+  alias mc='  make clean '
+  alias ga='  git add . '
+  alias gc='  git commit -m "$COMMIT_MESSAGE" '
+  alias gt='  echo <git-access-token> | xclip     -selection c '
+  alias gp='  git push '
+  alias gg='  git_commit_msg ; mc ; ga ; gc ; gt ; gp ; '
+        </code>
+      </pre>
+    </div>
+
+  </body>
+</html>
