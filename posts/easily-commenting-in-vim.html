@@ -1,3 +1,32 @@
 <html>
-init
+	<style>
+	</style>
+	<body>
+		<div class=center3>
+			<h3> Easily commenting and uncommenting in Vim </h3>
+      <pre>
+        <code class="codeblock">
+	 29 function IsComment()
+	 30   if getline('.') =~ '^\s*//'
+	 31     return 1
+	 32   else
+	 33     return 0
+	 34   endif
+	 35 endfunction
+	 36
+	 37 function ToggleComment()
+	 42   let is_commented = IsComment()
+	 43   if ! is_commented
+	 44     normal ^i//
+	 45     normal j
+	 46   else
+	 47     normal ^xxj   
+	 48   endif
+	 49 endfunction
+	 50
+	 55 map &lt;space&gt; :call ToggleComment()<CR>
+				</code>
+			</pre>
+		</div>
+	</body>
 </html>

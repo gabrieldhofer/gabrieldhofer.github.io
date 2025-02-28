@@ -1,3 +1,50 @@
 <html>
-init
+	<style>
+	</style>
+	<body>
+		<div class=center3>
+			<h3> Creating and Deleting branches with Git </h3> 
+			<b> Original Post Date: </b> 2025-02-19 <br>
+			<b> Last Modified: </b> 2025-02-19 <br><br>
+			Creating new branch 
+			<pre>
+				<code class="codeblock">
+	git checkout -b {new_branch_name} {based_on_branch}
+				</code>
+			</pre>
+
+			Push branch 
+			<pre>
+				<code>
+	git push --set-upstream origin {branch_name}
+				</code>
+			</pre>
+
+			User defined shell function, sets branch_name to current branch
+			<pre>
+				<code>
+	gpsuo ()
+	{
+		BRANCH_NAME="$(git branch | grep \* | awk '{print $2}')";
+		echo "current BRANCH_NAME: $BRANCH_NAME";
+		git push --set-upstream origin $BRANCH_NAME
+	}
+				</code>
+			</pre>
+
+			Deleting branch locally
+			<pre>
+				<code>
+	git branch -d {local_branch} [-D]
+				</code>
+			</pre>
+
+			Deleting branch remotely 
+			<pre>
+				<code>
+	git push origin -d {remote_branch}
+				</code>
+			</pre>
+		</div>
+	</body>
 </html>
