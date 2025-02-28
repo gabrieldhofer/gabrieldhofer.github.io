@@ -32,17 +32,19 @@
 
 					Creating new Spring Boot project with the Spring CLI<br>
 				<pre><code font-family="monospace" bgcolor="crimson">
-	spring init \
-		--build=maven \
-		--java-version=21 \
-		--dependencies=web,data-jpa,h2 \
-		sample_app
+  spring init \
+    --build=maven \
+    --java-version=21 \
+    --dependencies=web,data-jpa,h2 \
+    sample_app
 				</code></pre><br>
 
 					Compile<br>
-					<code font-family="monospace" bgcolor="crimson"> $ mvn compile </code><br><br>
+					<pre><code font-family="monospace" bgcolor="crimson">
+  $ mvn compile</code></pre><br><br>
 					Run<br>
-					<code font-family="monospace" bgcolor="crimson"> $ mvn spring-boot:run </code><br><br>
+					<pre><code font-family="monospace" bgcolor="crimson">
+  $ mvn spring-boot:run </code></pre><br><br>
 
 					<h4> Spring and IoC </h4>
 					<h4> @Bean annotation </h4>
