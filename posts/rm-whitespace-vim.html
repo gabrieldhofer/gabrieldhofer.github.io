@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>Multi-Blue by Bryant Smith</title>
+</head>
+
+<body>
+	<div id="page">
+		<div id="pagetop">
+		<h1>Gabriel's Blog</h1>
+			<div class="links">    	
+				<ul>
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Products</a></li>
+					<li><a href="#">Services</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="header">   Insert slogan here, or leave it blank.     </div>
+  
+		<div id="main">
+			<div class="content">
+				<div class="main_top">
+					<h1>Removing whitespace between brackets</h1>
+				</div>
+				<div class="main_body">
+				<!-- <p>This template uses a H1 tags for the titles of each page, (or sub titles if you prefer) and paragraphs to separate the content.  </p> --> 
+				<pre><code>
+	 57 " remove spaces between delimiters
+	 58 function MyWhitespaceFormatting()
+	 59   :s/(\s*/(/g
+	 60   :s/\s*)/)/g
+	 61 endfunction 
+	 62   
+	 63 map q <Nop>
+	 64 map qg [(v])"
+	 65 map qh :call MyWhitespaceFormatting()<CR>
+				</code></pre>
+						
+				</div>
+			</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+		<div id="footer">
+			<p>
+				<a href="http://www.bryantsmith.com/template">xhtml template</a> by <a href="http://www.bryantsmith.com">web page designer</a></p>
+		</div>        
+	</div>
+</body>
+</html>
