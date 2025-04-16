@@ -33,6 +33,27 @@
 
 				<!-- BLOG POST CONTENT GOES HERE -->
 				put suff here
+
+				<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">function </span>IsComment<span style="color: #333333">()</span>
+  <span style="color: #008800; font-weight: bold">if </span>getline<span style="color: #333333">(</span><span style="background-color: #fff0f0">&#39;.&#39;</span><span style="color: #333333">)</span> <span style="color: #333333">=</span>~ <span style="background-color: #fff0f0">&#39;^\s*//&#39;</span>
+    <span style="color: #008800; font-weight: bold">return </span>1
+  <span style="color: #008800; font-weight: bold">else</span>
+<span style="color: #008800; font-weight: bold">    return </span>0
+  endif
+endfunction
+
+<span style="color: #008800; font-weight: bold">function </span>ToggleComment<span style="color: #333333">()</span>
+        <span style="color: #007020">let </span><span style="color: #996633">is_commented</span> <span style="color: #333333">=</span> IsComment<span style="color: #333333">()</span>
+        <span style="color: #008800; font-weight: bold">if</span> ! is_commented
+                normal ^i//
+                normal j
+        <span style="color: #008800; font-weight: bold">else</span>
+<span style="color: #008800; font-weight: bold">                </span>normal ^xxj
+        endif
+endfunction
+</pre></div>
+
+
 				
 				<!-- ************************************************* -->
 				</div>
