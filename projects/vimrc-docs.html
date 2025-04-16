@@ -45,13 +45,13 @@ Commenting and Uncommenting with the space bar
 endfunction
 
 <span style="color: #008800; font-weight: bold">function </span>ToggleComment<span style="color: #333333">()</span>
-        <span style="color: #007020">let </span><span style="color: #996633">is_commented</span> <span style="color: #333333">=</span> IsComment<span style="color: #333333">()</span>
-        <span style="color: #008800; font-weight: bold">if</span> ! is_commented
-                normal ^i//
-                normal j
-        <span style="color: #008800; font-weight: bold">else</span>
-<span style="color: #008800; font-weight: bold">                </span>normal ^xxj
-        endif
+  <span style="color: #007020">let </span><span style="color: #996633">is_commented</span> <span style="color: #333333">=</span> IsComment<span style="color: #333333">()</span>
+  <span style="color: #008800; font-weight: bold">if</span> ! is_commented
+    normal ^i//
+    normal j
+  <span style="color: #008800; font-weight: bold">else</span>
+<span style="color: #008800; font-weight: bold">    </span>normal ^xxj
+  endif
 endfunction
 
 map &lt;space&gt; :call ToggleComment<span style="color: #333333">()</span>&lt;CR&gt;
@@ -61,8 +61,8 @@ map &lt;space&gt; :call ToggleComment<span style="color: #333333">()</span>&lt;C
 Expanding/Collapsing For Loops &amp; removing whitespace between paraentheses<br>
 
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">function </span>MyWhitespaceFormatting<span style="color: #333333">()</span>
-        :s/<span style="color: #333333">(</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\s</span>*/<span style="color: #333333">(</span>/ge
-        :s/<span style="color: #666666; font-weight: bold; background-color: #fff0f0">\s</span>*<span style="color: #333333">)</span>/<span style="color: #333333">)</span>/ge
+  :s/<span style="color: #333333">(</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\s</span>*/<span style="color: #333333">(</span>/ge
+  :s/<span style="color: #666666; font-weight: bold; background-color: #fff0f0">\s</span>*<span style="color: #333333">)</span>/<span style="color: #333333">)</span>/ge
 endfunction
 
 map q &lt;Nop&gt;
@@ -70,8 +70,8 @@ map qf <span style="color: #333333">[(</span>v<span style="color: #333333">])</s
 <span style="background-color: #fff0f0">map qh :call MyWhitespaceFormatting()&lt;CR&gt;</span>
 
 <span style="background-color: #fff0f0">function MakeOneLine()</span>
-<span style="background-color: #fff0f0">        normal [(v])&quot;</span>
-        :call MyWhitespaceFormatting<span style="color: #333333">()</span>
+<span style="background-color: #fff0f0">  normal [(v])&quot;</span>
+  :call MyWhitespaceFormatting<span style="color: #333333">()</span>
 endfunction
 
 map qg :call MakeOneLine<span style="color: #333333">()</span>&lt;CR&gt;
