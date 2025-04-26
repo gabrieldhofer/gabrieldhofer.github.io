@@ -77,12 +77,44 @@
           The column names in the csv headers are currently in mixed case with spaces and special characters. Convert all column names to snake_case. (Example: "Patients' rating of the faciilty linear mean score" becomes "patients_rating_of_the_facility_linear_mean_score").
           <br><br>
           The csv files should be downloaded and processed in parallel, and the job should be designed to run every day, but only download files that have been modified since the previous run (need to track runs/metadata).
+
           <br><br>
           https://data.cms.gov/provider-data-api/1/metastore/schemas/dataset/items
           <br><br>
         </p>
         
-        <h2>header</h2>
+        <h2>Submission</h2>
+          We will meet each of the requirments specified above, let's first start with the job scheduling/orchestration. Our pipeline will leverage the Python library called 'schedule'.<br><br>
+
+         Additionally, it leverages the timezone library called 'timezone' to specify the timezone to use. <br><br>
+          <!-- ********************************************************************* -->
+          <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4
+5
+6
+7
+8</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">schedule</span>
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pytz</span> <span style="color: #008800; font-weight: bold">import</span> timezone
+
+schedule<span style="color: #333333">.</span>every()<span style="color: #333333">.</span>day<span style="color: #333333">.</span>at(<span style="background-color: #fff0f0">&quot;12:11:00&quot;</span>, timezone(<span style="background-color: #fff0f0">&quot;America/Chicago&quot;</span>))<span style="color: #333333">.</span>do(main)
+
+<span style="color: #008800; font-weight: bold">while</span> <span style="color: #008800; font-weight: bold">True</span>:
+  schedule<span style="color: #333333">.</span>run_pending()
+  time<span style="color: #333333">.</span>sleep(<span style="color: #0000DD; font-weight: bold">30</span>)
+</pre></td></tr></table></div>
+          <!-- ********************************************************************* -->
+
+          <h4>Given the CMS provider data metastore, write a script that downloads all data sets related to the theme "Hospitals".</h4>
+
+          <h4>The column names in the csv headers are currently in mixed case with spaces and special characters. Convert all column names to snake_case. (Example: "Patients' rating of the faciilty linear mean score" becomes "patients_rating_of_the_facility_linear_mean_score").</h4>
+
+          <h4>The csv files should be downloaded and processed in parallel,...</h4> 
+
+          <h4>and the job should be designed to run every day,... </h4>
+
+          <h4>but only download files that have been modified since the previous run (need to track runs/metadata).</h4>
         <!-- <p>&nbsp;</p> -->
         
         <h2>header</h2>
