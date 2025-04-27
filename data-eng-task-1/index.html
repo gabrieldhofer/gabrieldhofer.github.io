@@ -155,23 +155,20 @@ This function filters the dataframe such that the theme column contains "Hospita
           <br>
           <h4><i>"and the job should be designed to run every day, ..."</i> </h4>
           <br>
+
+
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">schedule</span>
 <span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pytz</span> <span style="color: #008800; font-weight: bold">import</span> timezone
 <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">datetime</span>
 
-<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">job</span>():
-  spark <span style="color: #333333">=</span> SparkSession<span style="color: #333333">.</span>builder<span style="color: #333333">.</span>getOrCreate()
-  df <span style="color: #333333">=</span> spark<span style="color: #333333">.</span>createDataFrame(get_data())
-  filtered <span style="color: #333333">=</span> filter_by_hospitals_theme(df)
-  case_converted <span style="color: #333333">=</span> cols_to_snake_case(filtered)
-  case_converted<span style="color: #333333">.</span>show()
-
-schedule<span style="color: #333333">.</span>every()<span style="color: #333333">.</span>day<span style="color: #333333">.</span>at(<span style="background-color: #fff0f0">&quot;12:11:00&quot;</span>, timezone(<span style="background-color: #fff0f0">&quot;America/Chicago&quot;</span>))<span style="color: #333333">.</span>do(job)
-
-<span style="color: #008800; font-weight: bold">while</span> <span style="color: #008800; font-weight: bold">True</span>:
-  schedule<span style="color: #333333">.</span>run_pending()
-  time<span style="color: #333333">.</span>sleep(<span style="color: #0000DD; font-weight: bold">30</span>)
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">main</span>():
+  schedule<span style="color: #333333">.</span>every()<span style="color: #333333">.</span>day<span style="color: #333333">.</span>at(<span style="background-color: #fff0f0">&quot;12:11:00&quot;</span>, timezone(<span style="background-color: #fff0f0">&quot;America/Chicago&quot;</span>))<span style="color: #333333">.</span>do(job)
+  <span style="color: #008800; font-weight: bold">while</span> <span style="color: #008800; font-weight: bold">True</span>:
+    schedule<span style="color: #333333">.</span>run_pending()
+    time<span style="color: #333333">.</span>sleep(<span style="color: #0000DD; font-weight: bold">30</span>)
 </pre></div>
+
+
           <br><br>
           <h4><i>"but only download files that have been modified since the previous run (need to track runs/metadata).</i></h4>
         <!-- *********************************************************************** -->
