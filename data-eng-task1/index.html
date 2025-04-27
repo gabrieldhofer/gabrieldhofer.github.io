@@ -64,7 +64,7 @@ schedule<span style="color: #333333">.</span>every()<span style="color: #333333"
           <br><br>
           <h4>The csv files should be downloaded and processed in parallel,...</h4> 
           <br>
-          In order by process the data in parallel, we leverage PySpark:
+          In order by process the data in parallel, we leverage PySpark.<br>
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pyspark.sql</span> <span style="color: #008800; font-weight: bold">import</span> SparkSession
 <span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pyspark.sql</span> <span style="color: #008800; font-weight: bold">import</span> Row
 <span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pyspark.sql.functions</span> <span style="color: #008800; font-weight: bold">import</span> array_contains
@@ -98,6 +98,7 @@ This function filters the dataframe such that the theme column contains "Hospita
 
           <br><br>
           <h4>The column names in the csv headers are currently in mixed case with spaces and special characters. Convert all column names to snake_case. (Example: "Patients' rating of the faciilty linear mean score" becomes "patients_rating_of_the_facility_linear_mean_score").</h4>
+<br>
 
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">re</span>
 
@@ -110,8 +111,9 @@ This function filters the dataframe such that the theme column contains "Hospita
 </pre></div>
 
 
-          <br><br>
+          <br>
           <h4>and the job should be designed to run every day,... </h4>
+          <br>
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">schedule</span>
 <span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pytz</span> <span style="color: #008800; font-weight: bold">import</span> timezone
 <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">datetime</span>
