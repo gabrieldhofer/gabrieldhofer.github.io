@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>Multi-Blue by Bryant Smith</title>
+</head>
+
+<body>
+    <div id="page">
+      <div id="pagetop">
+		<h1>Multi-Blue</h1>
+        <div class="links">    	
+            <ul>
+           	   	<li><a href="#">Home</a></li>
+               	<li><a href="#">Products</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+     </div>
+        
+        <div id="header">   Insert slogan here, or leave it blank.     </div>
+  
+<div id="main">
+	<div class="content">
+        	<div class="main_top">
+            	<h1>Page Title</h1>
+            </div>
+            
+           	<div class="main_body">
+               <!-- ******************************************************************** --> 
+ <p>
+          Given the CMS provider data metastore, write a script that downloads all data sets related to the theme "Hospitals".
+          <br><br>
+          The column names in the csv headers are currently in mixed case with spaces and special characters. Convert all column names to snake_case. (Example: "Patients' rating of the faciilty linear mean score" becomes "patients_rating_of_the_facility_linear_mean_score").
+          <br><br>
+          The csv files should be downloaded and processed in parallel, and the job should be designed to run every day, but only download files that have been modified since the previous run (need to track runs/metadata).
+
+          <br><br>
+          https://data.cms.gov/provider-data-api/1/metastore/schemas/dataset/items
+          <br><br>
+        </p>
+        
+        <h2>Submission</h2>
+          We will meet each of the requirments specified above, let's first start with the job scheduling/orchestration. Our pipeline will leverage the Python library called 'schedule'.<br><br>
+
+         Additionally, it leverages the pytz library to specify the timezone that the job is scheduled to run. <br><br>
+          <!-- ********************************************************************* -->
+          <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4
+5
+6
+7
+8</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">schedule</span>
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pytz</span> <span style="color: #008800; font-weight: bold">import</span> timezone
+
+schedule<span style="color: #333333">.</span>every()<span style="color: #333333">.</span>day<span style="color: #333333">.</span>at(<span style="background-color: #fff0f0">&quot;12:11:00&quot;</span>, timezone(<span style="background-color: #fff0f0">&quot;America/Chicago&quot;</span>))<span style="color: #333333">.</span>do(main)
+
+<span style="color: #008800; font-weight: bold">while</span> <span style="color: #008800; font-weight: bold">True</span>:
+  schedule<span style="color: #333333">.</span>run_pending()
+  time<span style="color: #333333">.</span>sleep(<span style="color: #0000DD; font-weight: bold">30</span>)
+</pre></td></tr></table></div>
+          <!-- ********************************************************************* -->
+
+          <h4>Given the CMS provider data metastore, write a script that downloads all data sets related to the theme "Hospitals".</h4>
+          <br><br>
+          <h4>The csv files should be downloaded and processed in parallel,...</h4> 
+          In order by process the data in parallel, we leverage PySpark:
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pyspark.sql</span> <span style="color: #008800; font-weight: bold">import</span> SparkSession
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pyspark.sql</span> <span style="color: #008800; font-weight: bold">import</span> Row
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pyspark.sql.functions</span> <span style="color: #008800; font-weight: bold">import</span> array_contains
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pyspark.sql</span> <span style="color: #008800; font-weight: bold">import</span> DataFrame
+</pre></td></tr></table></div>
+
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">get_data</span>() <span style="color: #333333">-&gt;</span> <span style="color: #007020">list</span>:
+  <span style="color: #DD4422">&quot;&quot;&quot; Retrieve data via HTTP GET request &quot;&quot;&quot;</span>
+  URL <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;http://data.cms.gov/provider-data/api/1/metastore/schemas/dataset/items&quot;</span>
+  response <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(URL)
+  data_dict <span style="color: #333333">=</span> {}
+  <span style="color: #008800; font-weight: bold">if</span> response<span style="color: #333333">.</span>status_code <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">200</span>:
+      <span style="color: #008800; font-weight: bold">try</span>:
+          <span style="color: #008800; font-weight: bold">return</span> response<span style="color: #333333">.</span>json()
+      <span style="color: #008800; font-weight: bold">except</span> <span style="color: #FF0000; font-weight: bold">ValueError</span>:
+          <span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;Response is not in JSON format&quot;</span>)
+  <span style="color: #008800; font-weight: bold">else</span>:
+      <span style="color: #007020">print</span>(f<span style="background-color: #fff0f0">&quot;Request failed with status code {response.status.code}&quot;</span>)
+</pre></td></tr></table></div>
+
+This function filters the dataframe such that the theme column contains "Hospitals".
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">filter_by_hospitals_theme</span>(df) <span style="color: #333333">-&gt;</span> <span style="color: #007020">list</span>:
+  <span style="color: #DD4422">&quot;&quot;&quot; only return rows with theme containing &#39;Hospitals&#39; &quot;&quot;&quot;</span>
+  <span style="color: #008800; font-weight: bold">return</span> df<span style="color: #333333">.</span>filter(array_contains(df<span style="color: #333333">.</span>theme, <span style="background-color: #fff0f0">&#39;Hospitals&#39;</span>))
+</pre></td></tr></table></div>
+
+
+
+          <br><br>
+          <h4>The column names in the csv headers are currently in mixed case with spaces and special characters. Convert all column names to snake_case. (Example: "Patients' rating of the faciilty linear mean score" becomes "patients_rating_of_the_facility_linear_mean_score").</h4>
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4
+5
+6
+7
+8</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">re</span>
+
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">cols_to_snake_case</span>(df) <span style="color: #333333">-&gt;</span> <span style="color: #008800; font-weight: bold">None</span>:
+  <span style="color: #DD4422">&quot;&quot;&quot; convert column names to snake case &quot;&quot;&quot;</span>
+  <span style="color: #008800; font-weight: bold">for</span> col <span style="color: #000000; font-weight: bold">in</span> df<span style="color: #333333">.</span>columns:
+      new_col <span style="color: #333333">=</span> re<span style="color: #333333">.</span>sub(<span style="background-color: #fff0f0">r&quot;(?&lt;!^)(?=[A-Z])&quot;</span>, <span style="background-color: #fff0f0">&quot;_&quot;</span>, col)<span style="color: #333333">.</span>lower()
+      df <span style="color: #333333">=</span> df<span style="color: #333333">.</span>withColumnRenamed(col, new_col)
+  <span style="color: #008800; font-weight: bold">return</span> df
+</pre></td></tr></table></div>
+
+          <br><br>
+          <h4>and the job should be designed to run every day,... </h4>
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">schedule</span>
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pytz</span> <span style="color: #008800; font-weight: bold">import</span> timezone
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">datetime</span>
+
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">job</span>():
+  spark <span style="color: #333333">=</span> SparkSession<span style="color: #333333">.</span>builder<span style="color: #333333">.</span>getOrCreate()
+  df <span style="color: #333333">=</span> spark<span style="color: #333333">.</span>createDataFrame(get_data())
+  filtered <span style="color: #333333">=</span> filter_by_hospitals_theme(df)
+  case_converted <span style="color: #333333">=</span> cols_to_snake_case(filtered)
+  case_converted<span style="color: #333333">.</span>show()
+
+schedule<span style="color: #333333">.</span>every()<span style="color: #333333">.</span>day<span style="color: #333333">.</span>at(<span style="background-color: #fff0f0">&quot;12:11:00&quot;</span>, timezone(<span style="background-color: #fff0f0">&quot;America/Chicago&quot;</span>))<span style="color: #333333">.</span>do(job)
+
+<span style="color: #008800; font-weight: bold">while</span> <span style="color: #008800; font-weight: bold">True</span>:
+  schedule<span style="color: #333333">.</span>run_pending()
+  time<span style="color: #333333">.</span>sleep(<span style="color: #0000DD; font-weight: bold">30</span>)
+</pre></td></tr></table></div>
+
+          <br><br>
+          <h4>but only download files that have been modified since the previous run (need to track runs/metadata).</h4>
+        
+        </div>
+               <!-- ******************************************************************** --> 
+            </div>
+            
+			</div>
+            <div class="clear">&nbsp;</div>
+        </div>
+<div id="footer">
+        <p>
+        <a href="http://www.bryantsmith.com/template">xhtml template</a> by <a href="http://www.bryantsmith.com">web page designer</a></p>
+        </div>        
+        
+        
+        
+        </div>
+</body>
+</html>
