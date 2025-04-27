@@ -99,7 +99,7 @@ schedule<span style="color: #333333">.</span>every()<span style="color: #333333"
 <span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pyspark.sql.functions</span> <span style="color: #008800; font-weight: bold">import</span> array_contains
 <span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pyspark.sql</span> <span style="color: #008800; font-weight: bold">import</span> DataFrame
 </pre></div>
-<br><br>
+<br>
 
 The following function defines the job that is scheduled to run daily at 12:11PM. 
 <br><br>
@@ -113,6 +113,7 @@ A pyspark dataframe is created with the <tt>spark.createDataFrame</tt> method.
   case_converted <span style="color: #333333">=</span> cols_to_snake_case(filtered)
   case_converted<span style="color: #333333">.</span>show()
 </pre></div>
+<br>
 
 The following function leverages the requests Python library to perform an HTTP GET request to retrieve data from the source.
 <br><br>
@@ -129,18 +130,19 @@ The following function leverages the requests Python library to perform an HTTP 
   <span style="color: #008800; font-weight: bold">else</span>:
       <span style="color: #007020">print</span>(f<span style="background-color: #fff0f0">&quot;Request failed with status code {response.status.code}&quot;</span>)
 </pre></div>
-<br><br>
 
-This function filters the dataframe such that the theme column contains "Hospitals".
-<br><br>
+    <br>
+    This function filters the dataframe such that the theme column contains "Hospitals".
+    <br><br>
+
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">filter_by_hospitals_theme</span>(df) <span style="color: #333333">-&gt;</span> <span style="color: #007020">list</span>:
   <span style="color: #DD4422">&quot;&quot;&quot; only return rows with theme containing &#39;Hospitals&#39; &quot;&quot;&quot;</span>
   <span style="color: #008800; font-weight: bold">return</span> df<span style="color: #333333">.</span>filter(array_contains(df<span style="color: #333333">.</span>theme, <span style="background-color: #fff0f0">&#39;Hospitals&#39;</span>))
 </pre></div>
 
-          <br><br>
+          <br>
           <h4><i>"The column names in the csv headers are currently in mixed case with spaces and special characters. Convert all column names to snake_case. (Example: "Patients' rating of the faciilty linear mean score" becomes "patients_rating_of_the_facility_linear_mean_score")."</i></h4>
-<br>
+          <br>
 
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">re</span>
 
@@ -156,7 +158,6 @@ This function filters the dataframe such that the theme column contains "Hospita
           <h4><i>"and the job should be designed to run every day, ..."</i> </h4>
           <br>
 
-
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">schedule</span>
 <span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pytz</span> <span style="color: #008800; font-weight: bold">import</span> timezone
 <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">datetime</span>
@@ -169,8 +170,19 @@ This function filters the dataframe such that the theme column contains "Hospita
 </pre></div>
 
 
-          <br><br>
+          <br>
           <h4><i>"but only download files that have been modified since the previous run (need to track runs/metadata).</i></h4>
+
+
+
+
+
+
+
+
+
+
+
         <!-- *********************************************************************** -->
         </div>
         <div id="content_bottom"></div>
