@@ -101,6 +101,21 @@ schedule<span style="color: #333333">.</span>every()<span style="color: #333333"
 </pre></div>
 <br><br>
 
+The following function defines the job that is scheduled to run daily at 12:11PM. 
+<br><br>
+A pyspark dataframe is created with the spark.createDataFrame method.
+<br><br>
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">job</span>():
+  spark <span style="color: #333333">=</span> SparkSession<span style="color: #333333">.</span>builder<span style="color: #333333">.</span>getOrCreate()
+  df <span style="color: #333333">=</span> spark<span style="color: #333333">.</span>createDataFrame(get_data())
+  filtered <span style="color: #333333">=</span> filter_by_hospitals_theme(df)
+  case_converted <span style="color: #333333">=</span> cols_to_snake_case(filtered)
+  case_converted<span style="color: #333333">.</span>show()
+</pre></div>
+
+The following function leverages the requests Python library to perform an HTTP GET request to retrieve data from the source.
+<br><br>
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">get_data</span>() <span style="color: #333333">-&gt;</span> <span style="color: #007020">list</span>:
   <span style="color: #DD4422">&quot;&quot;&quot; Retrieve data via HTTP GET request &quot;&quot;&quot;</span>
   URL <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;http://data.cms.gov/provider-data/api/1/metastore/schemas/dataset/items&quot;</span>
@@ -117,7 +132,7 @@ schedule<span style="color: #333333">.</span>every()<span style="color: #333333"
 <br><br>
 
 This function filters the dataframe such that the theme column contains "Hospitals".
-<br>
+<br><br>
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">filter_by_hospitals_theme</span>(df) <span style="color: #333333">-&gt;</span> <span style="color: #007020">list</span>:
   <span style="color: #DD4422">&quot;&quot;&quot; only return rows with theme containing &#39;Hospitals&#39; &quot;&quot;&quot;</span>
   <span style="color: #008800; font-weight: bold">return</span> df<span style="color: #333333">.</span>filter(array_contains(df<span style="color: #333333">.</span>theme, <span style="background-color: #fff0f0">&#39;Hospitals&#39;</span>))
