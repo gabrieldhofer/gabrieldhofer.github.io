@@ -75,48 +75,103 @@
         <p>&nbsp;</p>                                                                           
         <h3>Submission</h3>
         <br>
-          We will meet each of the requirments specified above, let's first start with the job scheduling/orchestration. Our pipeline will leverage the Python library called 'schedule'.<br><br>
-
-         Additionally, it leverages the pytz library to specify the timezone that the job is scheduled to run. <br><br>
+          <h4>Daily job scheduling</h4><br>
           <!-- ********************************************************************* -->
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">schedule</span>
-<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pytz</span> <span style="color: #008800; font-weight: bold">import</span> timezone
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">main</span>(data_location<span style="color: #333333">=</span><span style="background-color: #fff0f0">&quot;data.csv&quot;</span>):
+  schedule<span style="color: #333333">.</span>every()<span style="color: #333333">.</span>day<span style="color: #333333">.</span>at(<span style="background-color: #fff0f0">&quot;20:43:00&quot;</span>, timezone(<span style="background-color: #fff0f0">&quot;America/Chicago&quot;</span>))<span style="color: #333333">.</span>do(job)
+  <span style="color: #008800; font-weight: bold">while</span> <span style="color: #008800; font-weight: bold">True</span>:
+    schedule<span style="color: #333333">.</span>run_pending()
+    time<span style="color: #333333">.</span>sleep(<span style="color: #0000DD; font-weight: bold">1</span>)
 
-schedule<span style="color: #333333">.</span>every()<span style="color: #333333">.</span>day<span style="color: #333333">.</span>at(<span style="background-color: #fff0f0">&quot;12:11:00&quot;</span>, timezone(<span style="background-color: #fff0f0">&quot;America/Chicago&quot;</span>))<span style="color: #333333">.</span>do(main)
-
-<span style="color: #008800; font-weight: bold">while</span> <span style="color: #008800; font-weight: bold">True</span>:
-  schedule<span style="color: #333333">.</span>run_pending()
-  time<span style="color: #333333">.</span>sleep(<span style="color: #0000DD; font-weight: bold">30</span>)
+main()
 </pre></div>
+          <!-- ********************************************************************* -->
           <br>
           <h4><i>"Given the CMS provider data metastore, write a script that downloads all data sets related to the theme 'Hospitals'."</i></h4>
           <br>
           <h4><i>"The csv files should be downloaded and processed in parallel, ..."</i></h4> 
           <br>
-          In order by process the data in parallel, we leverage PySpark.<br><br>
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pyspark.sql</span> <span style="color: #008800; font-weight: bold">import</span> SparkSession
-<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pyspark.sql</span> <span style="color: #008800; font-weight: bold">import</span> Row
-<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pyspark.sql.functions</span> <span style="color: #008800; font-weight: bold">import</span> array_contains
-<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pyspark.sql</span> <span style="color: #008800; font-weight: bold">import</span> DataFrame
-</pre></div>
-<br>
-
-The following function defines the job that is scheduled to run daily at 12:11PM. 
-<br><br>
-A pyspark dataframe is created with the <tt>spark.createDataFrame</tt> method.
-<br><br>
-
+          <h4>The daily job process</h4><br>
+          <!-- ********************************************************************* -->
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">job</span>():
+  <span style="color: #DD4422">&quot;&quot;&quot; author: Gabriel Hofer &quot;&quot;&quot;</span>
   spark <span style="color: #333333">=</span> SparkSession<span style="color: #333333">.</span>builder<span style="color: #333333">.</span>getOrCreate()
-  df <span style="color: #333333">=</span> spark<span style="color: #333333">.</span>createDataFrame(get_data())
-  filtered <span style="color: #333333">=</span> filter_by_hospitals_theme(df)
+  tgt_df <span style="color: #333333">=</span> read_tgt_df(spark)
+  <span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;1. TGT_DF&quot;</span>)
+  tgt_df<span style="color: #333333">.</span>show()
+  <span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;row count: &quot;</span> <span style="color: #333333">+</span> <span style="color: #007020">str</span>(tgt_df<span style="color: #333333">.</span>count()))
+
+  src_df <span style="color: #333333">=</span> spark<span style="color: #333333">.</span>createDataFrame(get_data(), schema2)
+  <span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;2. SRC_DF&quot;</span>)
+  src_df<span style="color: #333333">.</span>show()
+  <span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;row count: &quot;</span> <span style="color: #333333">+</span> <span style="color: #007020">str</span>(src_df<span style="color: #333333">.</span>count()))
+  
+  filtered <span style="color: #333333">=</span> filter_by_hospitals_theme(src_df)
+  <span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;3. filtered&quot;</span>)
+  filtered<span style="color: #333333">.</span>show()
+
   case_converted <span style="color: #333333">=</span> cols_to_snake_case(filtered)
+  <span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;4. case_converted&quot;</span>)
   case_converted<span style="color: #333333">.</span>show()
+  
+  new_tgt_df <span style="color: #333333">=</span> upsert(tgt_df, case_converted)
+  <span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;5. new_tgt_df&quot;</span>)
+  new_tgt_df<span style="color: #333333">.</span>show()
+
+  <span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;row count: &quot;</span> <span style="color: #333333">+</span> <span style="color: #007020">str</span>(new_tgt_df<span style="color: #333333">.</span>count()))
+
+  write_tgt_df(new_tgt_df)
+  spark<span style="color: #333333">.</span>stop()
 </pre></div>
+
+          <!-- ********************************************************************* -->
 <br>
 
-The following function leverages the requests Python library to perform an HTTP GET request to retrieve data from the source.
-<br><br>
+
+          <h4>Reading and writing from/to CSV file "data.csv"</h4><br>
+          <!-- ********************************************************************* -->
+
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">read_tgt_df</span>(spark, data_location<span style="color: #333333">=</span><span style="background-color: #fff0f0">&quot;data.csv&quot;</span>):
+  <span style="color: #008800; font-weight: bold">return</span> spark<span style="color: #333333">.</span>read<span style="color: #333333">.</span>csv(
+    data_location, 
+    header<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">True</span>, 
+    schema<span style="color: #333333">=</span>schema
+    <span style="color: #888888">#inferSchema=True</span>
+  )
+  
+
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">write_tgt_df</span>(tgt_df, data_location<span style="color: #333333">=</span><span style="background-color: #fff0f0">&quot;data.csv&quot;</span>):
+  pandas_df <span style="color: #333333">=</span> tgt_df<span style="color: #333333">.</span>toPandas()
+  pandas_df<span style="color: #333333">.</span>to_csv(<span style="background-color: #fff0f0">&quot;data.csv&quot;</span>, index<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">False</span>)
+</pre></div>
+
+
+          <!-- ********************************************************************* -->
+<br>
+          <h4>snake case and filtering functions</h4>
+          <br>
+          <!-- ********************************************************************* -->
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">filter_by_hospitals_theme</span>(df) <span style="color: #333333">-&gt;</span> <span style="color: #007020">list</span>:
+  <span style="color: #DD4422">&quot;&quot;&quot; only return rows with theme containing &#39;Hospitals&#39; &quot;&quot;&quot;</span>
+  <span style="color: #888888">#return df.filter(array_contains(df.theme, &#39;Hospitals&#39;))</span>
+  <span style="color: #008800; font-weight: bold">return</span> df<span style="color: #333333">.</span>filter(col(<span style="background-color: #fff0f0">&quot;theme&quot;</span>)<span style="color: #333333">.</span>contains(<span style="background-color: #fff0f0">&quot;Hospitals&quot;</span>))
+
+
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">cols_to_snake_case</span>(df) <span style="color: #333333">-&gt;</span> <span style="color: #008800; font-weight: bold">None</span>:
+  <span style="color: #DD4422">&quot;&quot;&quot; convert column names to snake case &quot;&quot;&quot;</span>
+  <span style="color: #008800; font-weight: bold">for</span> col <span style="color: #000000; font-weight: bold">in</span> df<span style="color: #333333">.</span>columns:
+    new_col <span style="color: #333333">=</span> re<span style="color: #333333">.</span>sub(<span style="background-color: #fff0f0">r&quot;(?&lt;!^)(?=[A-Z])&quot;</span>, <span style="background-color: #fff0f0">&quot;_&quot;</span>, col)<span style="color: #333333">.</span>lower()
+    df <span style="color: #333333">=</span> df<span style="color: #333333">.</span>withColumnRenamed(col, new_col)
+  <span style="color: #008800; font-weight: bold">return</span> df
+</pre></div>
+
+          <!-- ********************************************************************* -->
+
+    <br>
+          <h4>Get JSON metadata</h4>
+          <br>
+          <!-- ********************************************************************* -->
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">get_data</span>() <span style="color: #333333">-&gt;</span> <span style="color: #007020">list</span>:
   <span style="color: #DD4422">&quot;&quot;&quot; Retrieve data via HTTP GET request &quot;&quot;&quot;</span>
   URL <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;http://data.cms.gov/provider-data/api/1/metastore/schemas/dataset/items&quot;</span>
@@ -131,43 +186,43 @@ The following function leverages the requests Python library to perform an HTTP 
       <span style="color: #007020">print</span>(f<span style="background-color: #fff0f0">&quot;Request failed with status code {response.status.code}&quot;</span>)
 </pre></div>
 
-    <br>
-    This function filters the dataframe such that the theme column contains "Hospitals".
-    <br><br>
 
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">filter_by_hospitals_theme</span>(df) <span style="color: #333333">-&gt;</span> <span style="color: #007020">list</span>:
-  <span style="color: #DD4422">&quot;&quot;&quot; only return rows with theme containing &#39;Hospitals&#39; &quot;&quot;&quot;</span>
-  <span style="color: #008800; font-weight: bold">return</span> df<span style="color: #333333">.</span>filter(array_contains(df<span style="color: #333333">.</span>theme, <span style="background-color: #fff0f0">&#39;Hospitals&#39;</span>))
-</pre></div>
+          <!-- ********************************************************************* -->
 
           <br>
           <h4><i>"The column names in the csv headers are currently in mixed case with spaces and special characters. Convert all column names to snake_case. (Example: "Patients' rating of the faciilty linear mean score" becomes "patients_rating_of_the_facility_linear_mean_score")."</i></h4>
           <br>
 
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">re</span>
+          <!-- ********************************************************************* -->
 
-<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">cols_to_snake_case</span>(df) <span style="color: #333333">-&gt;</span> <span style="color: #008800; font-weight: bold">None</span>:
-  <span style="color: #DD4422">&quot;&quot;&quot; convert column names to snake case &quot;&quot;&quot;</span>
-  <span style="color: #008800; font-weight: bold">for</span> col <span style="color: #000000; font-weight: bold">in</span> df<span style="color: #333333">.</span>columns:
-      new_col <span style="color: #333333">=</span> re<span style="color: #333333">.</span>sub(<span style="background-color: #fff0f0">r&quot;(?&lt;!^)(?=[A-Z])&quot;</span>, <span style="background-color: #fff0f0">&quot;_&quot;</span>, col)<span style="color: #333333">.</span>lower()
-      df <span style="color: #333333">=</span> df<span style="color: #333333">.</span>withColumnRenamed(col, new_col)
-  <span style="color: #008800; font-weight: bold">return</span> df
-</pre></div>
+
+
+
+
+
+
+
+
+
+          <!-- ********************************************************************* -->
 
           <br>
           <h4><i>"and the job should be designed to run every day, ..."</i> </h4>
           <br>
 
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">schedule</span>
-<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">pytz</span> <span style="color: #008800; font-weight: bold">import</span> timezone
-<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">datetime</span>
+          <!-- ********************************************************************* -->
 
-<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">main</span>():
-  schedule<span style="color: #333333">.</span>every()<span style="color: #333333">.</span>day<span style="color: #333333">.</span>at(<span style="background-color: #fff0f0">&quot;12:11:00&quot;</span>, timezone(<span style="background-color: #fff0f0">&quot;America/Chicago&quot;</span>))<span style="color: #333333">.</span>do(job)
-  <span style="color: #008800; font-weight: bold">while</span> <span style="color: #008800; font-weight: bold">True</span>:
-    schedule<span style="color: #333333">.</span>run_pending()
-    time<span style="color: #333333">.</span>sleep(<span style="color: #0000DD; font-weight: bold">30</span>)
-</pre></div>
+
+
+
+
+
+
+
+
+
+
+          <!-- ********************************************************************* -->
 
 
           <br>
