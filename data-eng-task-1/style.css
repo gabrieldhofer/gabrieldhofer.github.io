@@ -167,8 +167,8 @@ color:#87BCF8;
 {
 display:block;
 float:left;
-/*width:689px;*/
-width:889px;
+width:689px;
+/*width:889px;*/
 height:auto;
 padding-left:10px;
 padding-top:15px;
@@ -181,8 +181,8 @@ padding-bottom:5px;
 {
 	background-image:url(images/main_top.png);
 	background-repeat:no-repeat;
-	/*width:689px;*/
-  width:889px;
+	width:689px;
+  /*width:889px;*/
 	height:25px;
 }
 
@@ -190,8 +190,8 @@ padding-bottom:5px;
 {
 background-image:url(images/main_back.png);
 background-repeat:repeat-y;
-/*width:659px;*/
-width:859px;
+width:659px;
+/*width:859px;*/
 padding-left:15px;
 padding-right:15px;
 }
@@ -200,8 +200,8 @@ padding-right:15px;
 {
 background-image:url(images/main_bottom.png);
 background-repeat:no-repeat;
-/*width:689px;*/
-width:889px;
+width:689px;
+/*width:889px;*/
 height:25px;
 }
 
