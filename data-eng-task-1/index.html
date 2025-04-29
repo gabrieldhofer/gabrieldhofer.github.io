@@ -263,17 +263,13 @@ main()
           <!-- ********************************************************************* -->
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">async <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">download</span>(df):
   <span style="color: #008800; font-weight: bold">for</span> row <span style="color: #000000; font-weight: bold">in</span> df<span style="color: #333333">.</span>rdd<span style="color: #333333">.</span>collect():
-    <span style="color: #007020">print</span>(row)
     distribution <span style="color: #333333">=</span> row[<span style="color: #0000DD; font-weight: bold">6</span>]
     separator <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&#39;,&#39;</span>
     pairs <span style="color: #333333">=</span> re<span style="color: #333333">.</span>split(separator, distribution<span style="color: #333333">.</span>strip())
     <span style="color: #008800; font-weight: bold">for</span> pair <span style="color: #000000; font-weight: bold">in</span> pairs:
-      <span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;pair: &quot;</span> <span style="color: #333333">+</span> pair)
       pattern <span style="color: #333333">=</span> <span style="background-color: #fff0f0">r&quot;https?://\S+|www\.\S+&quot;</span>
       mtch <span style="color: #333333">=</span> re<span style="color: #333333">.</span>search(pattern, pair)
       <span style="color: #008800; font-weight: bold">if</span> mtch:
-        <span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;MATCH!&quot;</span>)
-        <span style="color: #007020">print</span>(mtch<span style="color: #333333">.</span>group(<span style="color: #0000DD; font-weight: bold">0</span>))
         <span style="color: #008800; font-weight: bold">with</span> requests<span style="color: #333333">.</span>Session() <span style="color: #008800; font-weight: bold">as</span> s:
           download <span style="color: #333333">=</span> s<span style="color: #333333">.</span>get(mtch<span style="color: #333333">.</span>group(<span style="color: #0000DD; font-weight: bold">0</span>))
           decoded_content <span style="color: #333333">=</span> download<span style="color: #333333">.</span>content<span style="color: #333333">.</span>decode(<span style="background-color: #fff0f0">&#39;utf-8&#39;</span>)
@@ -283,6 +279,8 @@ main()
             <span style="color: #007020">print</span>(row)
     time<span style="color: #333333">.</span>sleep(<span style="color: #0000DD; font-weight: bold">20</span>)
 </pre></div>
+
+
 
           <!-- ********************************************************************* -->
 
