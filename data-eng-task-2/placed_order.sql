@@ -12,4 +12,5 @@ CREATE TABLE placed_order (
   final_price decimal(12,2),
   comment varchar(255),
   discount timestamp,
+  PRIMARY KEY(id)
 )

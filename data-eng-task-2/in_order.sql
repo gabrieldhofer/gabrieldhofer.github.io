@@ -6,5 +6,6 @@ CREATE TABLE in_order (
   quantity INTEGER,
   item_price DECIMAL(12,2),
   price DECIMAL(12,2),
-  comment VARCHAR(255)
+  comment VARCHAR(255),
+  PRIMARY KEY(id)
 )
