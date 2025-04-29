@@ -176,7 +176,6 @@ main()
   <span style="color: #DD4422">&quot;&quot;&quot; Retrieve data via HTTP GET request &quot;&quot;&quot;</span>
   URL <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;http://data.cms.gov/provider-data/api/1/metastore/schemas/dataset/items&quot;</span>
   response <span style="color: #333333">=</span> requests<span style="color: #333333">.</span>get(URL)
-  data_dict <span style="color: #333333">=</span> {}
   <span style="color: #008800; font-weight: bold">if</span> response<span style="color: #333333">.</span>status_code <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">200</span>:
       <span style="color: #008800; font-weight: bold">try</span>:
           <span style="color: #008800; font-weight: bold">return</span> response<span style="color: #333333">.</span>json()
