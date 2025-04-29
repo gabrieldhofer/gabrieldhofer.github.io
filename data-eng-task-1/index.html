@@ -190,37 +190,94 @@ main()
           <!-- ********************************************************************* -->
 
           <br>
-          <h4><i>"The column names in the csv headers are currently in mixed case with spaces and special characters. Convert all column names to snake_case. (Example: "Patients' rating of the faciilty linear mean score" becomes "patients_rating_of_the_facility_linear_mean_score")."</i></h4>
+          <h4> Upsert </h4>
           <br>
 
           <!-- ********************************************************************* -->
 
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">upsert</span>(tgt_df, src_df):
+  <span style="color: #DD4422">&quot;&quot;&quot;</span>
+<span style="color: #DD4422">    This function &#39;merges&#39; the target data to the source data.</span>
 
+<span style="color: #DD4422">    The source dataframe is the data that was retrieved via the most recent HTTP request.</span>
 
+<span style="color: #DD4422">    The target dataframe is read from a file stored locally.</span>
 
+<span style="color: #DD4422">    If there are records not in the target dataframe but they do exist in the </span>
+<span style="color: #DD4422">    source dataframe, those new records are added to the target df.</span>
 
+<span style="color: #DD4422">    if there are records in the target and source dataframes with matching</span>
+<span style="color: #DD4422">    &#39;identifiers&#39; (column), then the record with the most recent &#39;modified&#39; </span>
+<span style="color: #DD4422">    value is stored back into the resulting target dataframe.</span>
 
+<span style="color: #DD4422">    Records are not deleted from the target or the source, i.e. the </span>
+<span style="color: #DD4422">    target dataframe and number of rows stored locally is always the same</span>
+<span style="color: #DD4422">    or increasing.</span>
 
+<span style="color: #DD4422">  &quot;&quot;&quot;</span>
+  inserts <span style="color: #333333">=</span> src_df<span style="color: #333333">.</span>alias(<span style="background-color: #fff0f0">&quot;src&quot;</span>)\
+    <span style="color: #333333">.</span>join(
+        tgt_df<span style="color: #333333">.</span>alias(<span style="background-color: #fff0f0">&quot;tgt&quot;</span>), 
+        on<span style="color: #333333">=</span><span style="background-color: #fff0f0">&quot;identifier&quot;</span>, 
+        how<span style="color: #333333">=</span><span style="background-color: #fff0f0">&quot;left_anti&quot;</span>
+    )    
 
+  <span style="color: #888888"># Identify updates</span>
+  updates <span style="color: #333333">=</span> src_df<span style="color: #333333">.</span>alias(<span style="background-color: #fff0f0">&quot;src&quot;</span>)\
+    <span style="color: #333333">.</span>join(tgt_df<span style="color: #333333">.</span>alias(<span style="background-color: #fff0f0">&quot;tgt&quot;</span>), on<span style="color: #333333">=</span><span style="background-color: #fff0f0">&quot;identifier&quot;</span>, how<span style="color: #333333">=</span><span style="background-color: #fff0f0">&quot;inner&quot;</span>)\
+    <span style="color: #333333">.</span>filter(col(<span style="background-color: #fff0f0">&quot;src.modified&quot;</span>) <span style="color: #333333">&gt;=</span> col(<span style="background-color: #fff0f0">&quot;tgt.modified&quot;</span>))
+  <span style="color: #888888">#.withColumn(&quot;current_tsp&quot;, current_timestamp())  # Update timestamp for updates</span>
+
+  <span style="color: #888888"># Keep rows that weren&#39;t in the new df (no deletions)</span>
+  unchanged <span style="color: #333333">=</span> tgt_df<span style="color: #333333">.</span>alias(<span style="background-color: #fff0f0">&quot;tgt&quot;</span>)<span style="color: #333333">.</span>join(src_df<span style="color: #333333">.</span>alias(<span style="background-color: #fff0f0">&quot;src&quot;</span>), on<span style="color: #333333">=</span><span style="background-color: #fff0f0">&quot;identifier&quot;</span>, how<span style="color: #333333">=</span><span style="background-color: #fff0f0">&quot;left_anti&quot;</span>)
+
+  <span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;inserts: new records in SRC dataframe&quot;</span>)
+  inserts<span style="color: #333333">.</span>show()
+  <span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;cdc_existing: records that were already in file, but are also in the SRC df and have a more recent &#39;modified&#39; tsp&quot;</span>)
+  updates<span style="color: #333333">.</span>show()
+  <span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;unchanged: records that were already in TGT, and aren&#39;t being updated&quot;</span>)
+  unchanged<span style="color: #333333">.</span>show()
+  
+  src_cols <span style="color: #333333">=</span> [<span style="background-color: #fff0f0">&quot;src.&quot;</span> <span style="color: #333333">+</span> x <span style="color: #008800; font-weight: bold">for</span> x <span style="color: #000000; font-weight: bold">in</span> cols]
+  tgt_cols <span style="color: #333333">=</span> [<span style="background-color: #fff0f0">&quot;tgt.&quot;</span> <span style="color: #333333">+</span> x <span style="color: #008800; font-weight: bold">for</span> x <span style="color: #000000; font-weight: bold">in</span> cols]
+  
+  inserts <span style="color: #333333">=</span> inserts<span style="color: #333333">.</span>select(<span style="color: #333333">*</span>src_cols)
+  updates <span style="color: #333333">=</span> updates<span style="color: #333333">.</span>select(<span style="color: #333333">*</span>src_cols)
+  unchanged <span style="color: #333333">=</span> unchanged<span style="color: #333333">.</span>select(<span style="color: #333333">*</span>tgt_cols)
+
+  async<span style="color: #333333">.</span>run(download(inserts<span style="color: #333333">.</span>union(updates)))
+  <span style="color: #008800; font-weight: bold">return</span> inserts<span style="color: #333333">.</span>union(updates)<span style="color: #333333">.</span>union(unchanged)
+</pre></div>
 
 
           <!-- ********************************************************************* -->
 
           <br>
-          <h4><i>"and the job should be designed to run every day, ..."</i> </h4>
+          <h4>Asyncronous CSV download</h4>
           <br>
-
           <!-- ********************************************************************* -->
-
-
-
-
-
-
-
-
-
-
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">async <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">download</span>(df):
+  <span style="color: #008800; font-weight: bold">for</span> row <span style="color: #000000; font-weight: bold">in</span> df<span style="color: #333333">.</span>rdd<span style="color: #333333">.</span>collect():
+    <span style="color: #007020">print</span>(row)
+    distribution <span style="color: #333333">=</span> row[<span style="color: #0000DD; font-weight: bold">6</span>]
+    separator <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&#39;,&#39;</span>
+    pairs <span style="color: #333333">=</span> re<span style="color: #333333">.</span>split(separator, distribution<span style="color: #333333">.</span>strip())
+    <span style="color: #008800; font-weight: bold">for</span> pair <span style="color: #000000; font-weight: bold">in</span> pairs:
+      <span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;pair: &quot;</span> <span style="color: #333333">+</span> pair)
+      pattern <span style="color: #333333">=</span> <span style="background-color: #fff0f0">r&quot;https?://\S+|www\.\S+&quot;</span>
+      mtch <span style="color: #333333">=</span> re<span style="color: #333333">.</span>search(pattern, pair)
+      <span style="color: #008800; font-weight: bold">if</span> mtch:
+        <span style="color: #007020">print</span>(<span style="background-color: #fff0f0">&quot;MATCH!&quot;</span>)
+        <span style="color: #007020">print</span>(mtch<span style="color: #333333">.</span>group(<span style="color: #0000DD; font-weight: bold">0</span>))
+        <span style="color: #008800; font-weight: bold">with</span> requests<span style="color: #333333">.</span>Session() <span style="color: #008800; font-weight: bold">as</span> s:
+          download <span style="color: #333333">=</span> s<span style="color: #333333">.</span>get(mtch<span style="color: #333333">.</span>group(<span style="color: #0000DD; font-weight: bold">0</span>))
+          decoded_content <span style="color: #333333">=</span> download<span style="color: #333333">.</span>content<span style="color: #333333">.</span>decode(<span style="background-color: #fff0f0">&#39;utf-8&#39;</span>)
+          cr <span style="color: #333333">=</span> csv<span style="color: #333333">.</span>reader(decoded_content<span style="color: #333333">.</span>splitlines(), delimiter<span style="color: #333333">=</span><span style="background-color: #fff0f0">&#39;,&#39;</span>)
+          my_list <span style="color: #333333">=</span> <span style="color: #007020">list</span>(cr)
+          <span style="color: #008800; font-weight: bold">for</span> row <span style="color: #000000; font-weight: bold">in</span> my_list:
+            <span style="color: #007020">print</span>(row)
+    time<span style="color: #333333">.</span>sleep(<span style="color: #0000DD; font-weight: bold">20</span>)
+</pre></div>
 
           <!-- ********************************************************************* -->
 
