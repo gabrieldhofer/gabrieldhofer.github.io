@@ -80,7 +80,8 @@
             <h4>placed_order</h4>
             <br>
             <p>
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">CREATE</span> <span style="color: #008800; font-weight: bold">TABLE</span> placed_orders (
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">CREATE</span> <span style="color: #008800; font-weight: bold">TABLE</span> placed_order (
   id <span style="color: #007020">INTEGER</span>,
   restaurant_id <span style="color: #007020">INTEGER</span>,
   order_time <span style="color: #008800; font-weight: bold">timestamp</span>,
@@ -94,14 +95,17 @@
   final_price <span style="color: #007020">decimal</span>(<span style="color: #0000DD; font-weight: bold">12</span>,<span style="color: #0000DD; font-weight: bold">2</span>),
   <span style="color: #008800; font-weight: bold">comment</span> <span style="color: #007020">varchar</span>(<span style="color: #0000DD; font-weight: bold">255</span>),
   discount <span style="color: #008800; font-weight: bold">timestamp</span>,
+  <span style="color: #008800; font-weight: bold">PRIMARY</span> <span style="color: #008800; font-weight: bold">KEY</span>(id)
 )
 </pre></div>
+
             </p>
             <p>&nbsp;</p>
 
             <h4>in_order</h4>
             <br>
             <p>
+
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">CREATE</span> <span style="color: #008800; font-weight: bold">TABLE</span> in_order (
   id <span style="color: #007020">INTEGER</span>,
   placed_order_id <span style="color: #007020">INTEGER</span>,
@@ -110,9 +114,14 @@
   quantity <span style="color: #007020">INTEGER</span>,
   item_price <span style="color: #007020">DECIMAL</span>(<span style="color: #0000DD; font-weight: bold">12</span>,<span style="color: #0000DD; font-weight: bold">2</span>),
   price <span style="color: #007020">DECIMAL</span>(<span style="color: #0000DD; font-weight: bold">12</span>,<span style="color: #0000DD; font-weight: bold">2</span>),
-  <span style="color: #008800; font-weight: bold">comment</span> <span style="color: #007020">VARCHAR</span>(<span style="color: #0000DD; font-weight: bold">255</span>)
+  <span style="color: #008800; font-weight: bold">comment</span> <span style="color: #007020">VARCHAR</span>(<span style="color: #0000DD; font-weight: bold">255</span>),
+  <span style="color: #008800; font-weight: bold">PRIMARY</span> <span style="color: #008800; font-weight: bold">KEY</span>(id)
 )
 </pre></div>
+
+
+
+
             </p>
             <p>&nbsp;</p>
 
