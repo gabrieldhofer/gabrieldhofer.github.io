@@ -122,6 +122,27 @@ body {
 
 <!-- ********************************************************************** -->
 <script>
+document.addEventListener('keydown', function(event) {
+  const tabs = document.querySelectorAll('.tablinks');
+  let activeIndex = Array.from(tabs).findIndex(tab => tab === document.activeElement);
+
+  if (event.key === 'j') {
+    // Move down
+    const nextIndex = (activeIndex + 1) % tabs.length;
+    tabs[nextIndex].focus();
+    tabs[nextIndex].click(); // Activate tab
+  } else if (event.key === 'k') {
+    // Move up
+    const prevIndex = (activeIndex - 1 + tabs.length) % tabs.length;
+    tabs[prevIndex].focus();
+    tabs[prevIndex].click(); // Activate tab
+  }
+});
+</script>
+
+
+<!-- ********************************************************************** -->
+<script>
 function openCity(evt, cityName) {
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
