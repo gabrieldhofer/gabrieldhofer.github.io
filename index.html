@@ -29,10 +29,49 @@ The purpose of this project is to learn about databases from the ground up.
 <!-- TODO: import this div from another file -->
 <div id="project-overview" class="tabcontent">
   <h3>Project Overview</h3>
-  <h5>TODO</h5>
 
+
+  <p>Author: Gabriel Hofer<br>Date: 2026-04-10  </p>
+  <p><strong>Goals:</strong></p>
+  <ol>
+  <li>Have fun learning about databases</li>
+  <li>To Understand databases internals</li>
+  <li>To implement clustered indexes with B+ trees and possible other structures</li>
+  <li>Implementation should read and write data files and index files.</li>
+  <li>To understand and implement query planning</li>
+  <li>To understand and implement Atomicity, Consistency, Isolation, Durability</li>
+  <li>Implement logical sharding (since we are developing on a single machine)</li>
+  <li>Implement Locking:<br> a. row-level, page-level, table-level<br> b. s-lock, x-lock, u-lock  </li>
+  </ol>
+  <p><strong>Coding Standards:</strong></p>
+  <ul>
+  <li>Implementation should be in Scala 3, built with SBT</li>
+  <li>Only Immutable types: Vector, List, Set, Map, Range</li>
+  <li>No for loops, only folds, reduce, and other strictly functional constructs</li>
+  <li>The data should always exist in a tree (B+), with a unique key</li>
+  </ul>
+  <p><strong>More Goals:</strong></p>
+  <ul>
+  <li>Implement method to print the B+ tree, formatted</li>
+  <li>Understand how index framentation happens and how to remediate it</li>
+  <li>Explore B+ tree alternatives</li>
+  <li>Create a &quot;service&quot; - to connect to the database via JDBC</li>
+  <li>Understand how column order in the index affects performance </li>
+  <li>Learn about covering an index in a query and why it matters</li>
+  <li>Database pages: page-id, heap files, tree files, page headers, page layout schemes,  </li>
+  <li>Think about how to add concurrency features with Scala actors</li>
+  </ul>
+  <p><strong>Online Resources:</strong></p>
+  <ul>
+  <li><a href="https://use-the-index-luke.com/sql/anatomy/the-tree">https://use-the-index-luke.com/sql/anatomy/the-tree</a></li>
+  <li><a href="https://15445.courses.cs.cmu.edu/spring2025/slides/03-storage1.pdf">https://15445.courses.cs.cmu.edu/spring2025/slides/03-storage1.pdf</a></li>
+  <li><a href="https://www.geeksforgeeks.org/dbms/indexing-in-databases-set-1/">https://www.geeksforgeeks.org/dbms/indexing-in-databases-set-1/</a></li>
+  <li><a href="https://github.com/pingcap/awesome-database-learning">https://github.com/pingcap/awesome-database-learning</a></li>
+  </ul>
   <a href="https://markdowntohtml.com/"></a>
-  <a href="https://en.wikipedia.org/wiki/Sharpe_ratio"></a>
+
+
+
 
 </div>
 
