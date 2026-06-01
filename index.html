@@ -24,9 +24,19 @@
   <h4>Overview</h4>
 
   The purpose of this project was to create a system that could measure the performance
-  of trading strategies/algorithms. <br><br>
+  of trading strategies/algorithms. <br>
 
-  This is done by randomly sampling slices of stock price data multiple times.
+  This is done by randomly sampling slices of stock price data multiple times.<br>
+
+  For each sample, the trading strategy determines whether to BUY/SELL at the time of each price.<br>
+
+  Therefore, there is a column called "orderAction". <br>
+
+  Then, every time there is a buy followed by an eventual sell, this is called a closed position.<br>
+
+  The closed position has a "return". This is the gist of the backtesting system.<br>
+
+  Finally, all of the "returns" can be averaged and/or compounded.<br>
 
   <h4>Command Line Parameters & Usage</h4>
 
