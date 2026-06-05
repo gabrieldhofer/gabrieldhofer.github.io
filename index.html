@@ -19,9 +19,9 @@
 
 <!-- ********************************************************************** -->
 <div id="backtesting" class="tabcontent">
-  <h3>Backtesting System with Apache Spark</h3>
+  <h2>Backtesting System with Apache Spark</h2>
 
-  <h4>Overview</h4>
+  <h3>Overview</h3>
   <ul>
     <li>The purpose of this project was to create a system that could measure the performance of trading <br>
         strategies/algorithms.</li>
@@ -33,7 +33,7 @@
     <li>Finally, all of the "returns" can be averaged and/or compounded.</li>
   </ul>
 
-  <h4>Command Line Parameters & Usage</h4>
+  <h3>Command Line Parameters & Usage</h3>
   Here's a great online guide to SBT: <a href="https://www.scala-sbt.org/2.x/docs/en/index.html">SBT Book</a><br><br>
 
   BatchCount: number of samples<br>
@@ -47,26 +47,26 @@
     $> run
   </code></pre>
 
-  <h4>Main</h4>
+  <h3>Main</h3>
   Entry point for the program. Creates the Spark Session and loads data into main.<br>
   <img src="backtestingMain.png" alt="backtesting main file">
 
-  <h4>Sampling</h4>
+  <h3>Sampling</h3>
   This randomly samples a slice of price data from the entire file.<br>
   <img src="backtestingSample.png" alt="backtesting sample file">
 
-  <h4>Benchmark</h4>
+  <h3>Benchmark</h3>
   This is the function that calls the <code>backtest</code> function <code>batchCount</code> many times.<br>
   <img src="backtestingBenchmark.png" alt="backtesting benchmark file">
 
-  <h4>Backtest</h4>
+  <h3>Backtest</h3>
   Calls the strategy on the sample data. Then calculates returns.<br>
   <img src="backtestingBacktest.png" alt="backtesting backtest file">
 
-  <h4>TTM Squeeze Indicator Strategy</h4>
+  <h3>TTM Squeeze Indicator Strategy</h3>
   <img src="backtestingTtmSqueeze.png" alt="backtesting ttm squeeze file">
 
-  <h4>Sharpe & Calmar</h4>
+  <h3>Sharpe & Calmar</h3>
   <ol>
     <li>https://en.wikipedia.org/wiki/Sharpe_ratio</li>
     <li>https://en.wikipedia.org/wiki/Calmar_ratio</li>
@@ -78,7 +78,7 @@
 <!-- ********************************************************************** -->
 <!-- TODO: import this div from another file -->
 <div id="project-overview" class="tabcontent">
-  <h3>Futre Project: Building a Database</h3>
+  <h2>Futre Project: Building a Database</h2>
 
   <p>Author: Gabriel Hofer<br>Date: 2026-04-10  </p>
   <p><strong>Goals:</strong></p>
