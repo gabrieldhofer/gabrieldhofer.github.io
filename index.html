@@ -52,19 +52,19 @@
   </code></pre>
 
   <h4>Main</h4>
-  Entry point for the program. Creates the Spark Session and loads data into main.
+  Entry point for the program. Creates the Spark Session and loads data into main.<br>
   <img src="backtestingMain.png" alt="backtesting main file" width=500px>
 
   <h4>Sampling</h4>
-  This randomly samples a slice of price data from the entire file.
+  This randomly samples a slice of price data from the entire file.<br>
   <img src="backtestingSample.png" alt="backtesting sample file">
 
   <h4>Benchmark</h4>
-  This is the function that calls the <code>backtest</code> function <code>batchCount</code> many times.
+  This is the function that calls the <code>backtest</code> function <code>batchCount</code> many times.<br>
   <img src="backtestingBenchmark.png" alt="backtesting benchmark file">
 
   <h4>Backtest</h4>
-  Calls the strategy on the sample data. Then calculates returns 
+  Calls the strategy on the sample data. Then calculates returns.<br>
   <img src="backtestingBacktest.png" alt="backtesting backtest file">
 
   <h4>Sharpe & Calmar</h4>
