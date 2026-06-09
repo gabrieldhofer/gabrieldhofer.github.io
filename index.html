@@ -33,16 +33,15 @@
   <h2>Backtesting System with Apache Spark</h2>
 
   <h3>Overview</h3>
-  <ul>
-    <li>The purpose of this project was to create a system that could measure the performance of trading <br>
-        strategies/algorithms.</li>
-    <li>This is done by randomly sampling slices of stock price data multiple times.</li>
-    <li>For each sample, the trading strategy determines whether to BUY/SELL at the time of each price.</li>
-    <li>Therefore, there is a column called "orderAction". </li>
-    <li>Then, every time there is a buy followed by an eventual sell, this is called a closed position.</li>
-    <li>The closed position has a "return". This is the gist of the backtesting system.</li>
-    <li>Finally, all of the "returns" can be averaged and/or compounded.</li>
-  </ul>
+  This project is a system for backtesting trading strategies.<br><br>
+
+  <u>Architecture Overview:</u><br>
+  <b>1.</b> The main program calls <code>benchmark</code>.<br>
+  <b>2.</b> The benchmark function creates <code>batchCount</code> backtest "batches".<br>
+  <b>3.</b> The backtest function selects a random slice from the historical data.<br>
+  <b>4.</b> Then backtest calls a strategy method to compute when the user should BUY/SELL.<br>
+  <b>5.</b> Finally, backtest calculates returns and excess returns based on those BUYs/SELLs.<br><br>
+
 
   <h3>Command Line Parameters & Usage</h3>
   Here's a great online guide to SBT: <a href="https://www.scala-sbt.org/2.x/docs/en/index.html">SBT Book</a><br>
