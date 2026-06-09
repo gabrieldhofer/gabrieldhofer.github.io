@@ -37,11 +37,10 @@
 
   <u>Architecture Overview:</u><br>
   <b>1.</b> The main program calls <code>benchmark</code>.<br>
-  <b>2.</b> The benchmark function creates <code>batchCount</code> backtest "batches".<br>
-  <b>3.</b> The backtest function selects a random slice from the historical data.<br>
-  <b>4.</b> Then backtest calls a strategy method to compute when the user should BUY/SELL.<br>
-  <b>5.</b> Finally, backtest calculates returns and excess returns based on those BUYs/SELLs.<br><br>
-
+  <b>2.</b> The benchmark function creates <code>backtest</code> "batches".<br>
+  <b>3.</b> The <code>backtest</code> function selects a random slice from the historical data.<br>
+  <b>4.</b> Then <code>backtest</code> calls a strategy method to compute when the user should BUY/SELL.<br>
+  <b>5.</b> Finally, <code>backtest</code> calculates returns and excess returns based on those BUYs/SELLs.<br><br>
 
   <h3>Command Line Parameters & Usage</h3>
   Here's a great online guide to SBT: <a href="https://www.scala-sbt.org/2.x/docs/en/index.html">SBT Book</a><br>
