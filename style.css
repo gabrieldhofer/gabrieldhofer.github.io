@@ -13,6 +13,10 @@ h1, h2, h3, h4 {
   font-family: 'Georgia', serif;
 }
 
+p {
+  text-indent: 40px; /* Can use px, em, rem, or % */
+}
+
 /* Style the tab */
 .tab {
   float: left;
