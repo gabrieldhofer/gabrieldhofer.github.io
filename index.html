@@ -118,20 +118,20 @@
 
   Here are the common table expression steps in <code>calcReturns</code>:<br>
 
-  <h4>expr0</h4>
+  <h4><code>expr0</code></h4>
   Adds <code>prevOrderAction</code><br>
   Only return records where orderAction changes from previous record
 
-  <h4>expr1</h4>
+  <h4><code>expr1</code></h4>
   Adds <code>closeLag</code><br>
   
-  <h4>expr2</h4>
+  <h4><code>expr2</code></h4>
   Adds <code>row_num2</code><br>
   Adds <code>closeRtn</code><br>
   Resets row numbers since we filtered in <code>expr0</code><br>
   <b>orderAction</b> must be false - because returns are calculated when positions are closed.<br>
 
-  <h4>expr3</h4>
+  <h4><code>expr3</code></h4>
   Adds <code>excessRtn</code><br>
 
   <h4>select expression</h4>
