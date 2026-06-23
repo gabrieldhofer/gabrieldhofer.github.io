@@ -51,13 +51,14 @@
   <h2>Backtesting System with Apache Spark</h2>
 
   <h3>Architecture Overview</h3>
-
-  <!-- <u>Architecture Overview:</u><br> -->
-  <b>1.</b> The main program calls <code>benchmark</code>.<br>
-  <b>2.</b> The benchmark function creates <code>backtest</code> "batches".<br>
-  <b>3.</b> The <code>backtest</code> function selects a random slice from the historical data.<br>
-  <b>4.</b> Then <code>backtest</code> calls a strategy method to compute when the user should BUY/SELL.<br>
-  <b>5.</b> Finally, <code>backtest</code> calculates returns and excess returns based on those BUYs/SELLs.<br><br>
+  <p>
+    <!-- <u>Architecture Overview:</u><br> -->
+    <b>1.</b> The main program calls <code>benchmark</code>.<br>
+    <b>2.</b> The benchmark function creates <code>backtest</code> "batches".<br>
+    <b>3.</b> The <code>backtest</code> function selects a random slice from the historical data.<br>
+    <b>4.</b> Then <code>backtest</code> calls a strategy method to compute when the user should BUY/SELL.<br>
+    <b>5.</b> Finally, <code>backtest</code> calculates returns and excess returns based on those BUYs/SELLs.<br><br>
+  </p>
 
   <h3>Command Line Parameters & Usage</h3>
   Here's a great online guide to SBT: <a href="https://www.scala-sbt.org/2.x/docs/en/index.html">SBT Book</a><br>
@@ -74,12 +75,14 @@
   <img src="compileAndRun.png" alt="backtesting compile and run file"><br>
 
   <h3>Main</h3>
-  Entry point for the program. It does the following things: <br>
-  <ul>
-    <li>parses command line arguments</li>
-    <li>creates the Spark Session</li>
-    <li>loads data into main</li>
-  </ul>
+  <p>
+    Entry point for the program. It does the following things: <br>
+    <ul>
+      <li>parses command line arguments</li>
+      <li>creates the Spark Session</li>
+      <li>loads data into main</li>
+    </ul>
+  </p>
   <br>
   <details>
     <summary>Code</summary>
@@ -87,17 +90,21 @@
   </details>
 
   <h3>Init</h3>
-  Create SparkSession and load data from file.<br><br>
-  Load the DDL (schema) from file and store as a string.<br><br>
-  The Spark Window object allows us to add a row number column to the dataframe.<br><br>
-  The OHLC data is loaded by also passing the DDL as the <code>schema</code> option.<br><br>
+  <p>
+    Create SparkSession and load data from file.<br><br>
+    Load the DDL (schema) from file and store as a string.<br><br>
+    The Spark Window object allows us to add a row number column to the dataframe.<br><br>
+    The OHLC data is loaded by also passing the DDL as the <code>schema</code> option.<br><br>
+  </p>
   <details>
     <summary>Code</summary>
     <img src="backtestingInit.png" alt="backtesting init file">
   </details>
 
   <h3>Benchmark</h3>
-  This function simply repeats a call to <code>backtest</code>. <br><br>
+  <p>
+    This function simply repeats a call to <code>backtest</code>. <br><br>
+  </p>
   <code>batchCount</code> is the number of times that <code>backtest</code> will get invoked.<br><br>
   <details>
     <summary>Code</summary>
@@ -105,25 +112,31 @@
   </details>
 
   <h3>Sampling</h3>
-  This randomly samples a slice of price data from the entire file.<br><br>
-
-  The random seed is set with the time in nanoseconds.<br><br>
+  <p>
+    This randomly samples a slice of price data from the entire file.<br><br>
+    The random seed is set with the time in nanoseconds.<br><br>
+  </p>
   <details>
     <summary>Code</summary>
     <img src="backtestingSample.png" alt="backtesting sample file">
   </details>
 
   <h3>Backtest</h3>
-  Calls the strategy on the sample data. Then calculates returns.<br><br>
-
-  Here are the common table expression steps in <code>calcReturns</code>:<br>
+  <p>
+    Calls the strategy on the sample data. Then calculates returns.<br><br>
+    Here are the common table expression steps in <code>calcReturns</code>:<br>
+  </p>
 
   <h4><u><code>expr0</code></u></h4>
-  Adds <code>prevOrderAction</code><br>
-  Only return records where orderAction changes from previous record
+  <p>
+    Adds <code>prevOrderAction</code><br>
+    Only return records where orderAction changes from previous record
+  </p>
 
   <h4><u><code>expr1</code></u></h4>
-  Adds <code>closeLag</code><br>
+  <p>
+    Adds <code>closeLag</code><br>
+  </p>
   
   <h4><code>expr2</code></h4>
   Adds <code>row_num2</code><br>
