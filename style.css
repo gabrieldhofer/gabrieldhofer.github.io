@@ -35,6 +35,7 @@ h1, h2, h3, h4 {
   cursor: pointer;
   transition: 0.3s;
   font-size: 14px;
+  font-family: 'Georgia', serif;
 }
 
 /* Change background color of buttons on hover */
