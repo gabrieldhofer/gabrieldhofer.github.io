@@ -1,10 +1,14 @@
 * {box-sizing: border-box}
+
 body {
-  /* font-family: "Lato", sans-serif; */
-  /* font-family: "Calibri", sans-serif; */
-  font-family: 'EB Garamond', Garamond, serif;
-  background-color: #ABB8C3;
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333333;
+    background-color: #ABB8C3;
 }
+
+
 
 h1, h2, h3, h4 {
   font-family: 'Georgia', serif;
