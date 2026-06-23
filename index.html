@@ -116,23 +116,23 @@
   <h3>Backtest</h3>
   Calls the strategy on the sample data. Then calculates returns.<br><br>
 
-  <h5>expr0</h5>
+  <h4>expr0</h4>
   Adds <code>prevOrderAction</code><br>
   Only return records where orderAction changes from previous record
 
-  <h5>expr1</h5>
+  <h4>expr1</h4>
   Adds <code>closeLag</code><br>
   
-  <h5>expr2</h5>
+  <h4>expr2</h4>
   Adds <code>row_num2</code><br>
   Adds <code>closeRtn</code><br>
   Resets row numbers since we filtered in <code>expr0</code><br>
   <b>orderAction</b> must be false - because returns are calculated when positions are closed.<br>
 
-  <h5>expr3</h5>
+  <h4>expr3</h4>
   Adds <code>excessRtn</code><br>
 
-  <h5>select expression</h5>
+  <h4>select expression</h4>
   <details>
     <summary>Code</summary>
     <img src="backtestingBacktest.png" alt="backtesting backtest file">
