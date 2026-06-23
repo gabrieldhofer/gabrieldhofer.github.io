@@ -6,6 +6,10 @@ body {
   background-color: #ABB8C3;
 }
 
+h1, h2, h3, h4 {
+  font-family: 'Georgia', serif;
+}
+
 /* Style the tab */
 .tab {
   float: left;
