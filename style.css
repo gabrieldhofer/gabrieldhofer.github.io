@@ -27,6 +27,7 @@ details {
   border: 1px solid #707070; /* 1px creates a crisp, thin line */
   padding: 10px;          /* Adds breathing room inside the border */
   border-radius: 8px;     /* Optional: slightly rounds the corners */
+  width: fit-content;
 }
 
 /* Style the tab */
