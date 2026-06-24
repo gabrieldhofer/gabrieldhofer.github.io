@@ -137,31 +137,23 @@
       Here are the common table expression steps in <code>calcReturns</code>:<br>
     </p>
 
-    <h4><u><code>expr0</code></u></h4>
-    <p>
-      Adds <code>prevOrderAction</code><br>
-      Only return records where orderAction changes from previous record
-    </p>
+    <u><code>expr0</code></u> &xrarr;
+    Adds <code>prevOrderAction</code>.
+    Only return records where orderAction changes from previous record
 
-    <h4><u><code>expr1</code></u></h4>
-    <p>
-      Adds <code>closeLag</code><br>
-    </p>
+    <u><code>expr1</code></u>&xrarr;
+    Adds <code>closeLag</code><br>
     
-    <h4><u><code>expr2</code></u></h4>
-    <p>
-      Adds <code>row_num2</code><br>
-      Adds <code>closeRtn</code><br>
-      Resets row numbers since we filtered in <code>expr0</code><br>
-      <b>orderAction</b> must be false - because returns are calculated when positions are closed.<br>
-    </p>
+    <u><code>expr2</code></u>&xrarr;
+    Adds <code>row_num2</code><br>
+    Adds <code>closeRtn</code><br>
+    Resets row numbers since we filtered in <code>expr0</code><br>
+    <b>orderAction</b> must be false - because returns are calculated when positions are closed.<br>
 
-    <h4><u><code>expr3</code></u></h4>
-    <p>
-      Adds <code>excessRtn</code><br>
-    </p>
+    <u><code>expr3</code></u>&xrarr;
+    Adds <code>excessRtn</code><br>
 
-    <h4><u>select expression</u></h4>
+    <u>select expression</u><br>
     <details>
       <summary>Code</summary>
       <img src="backtestingBacktest.png" alt="backtesting backtest file">
