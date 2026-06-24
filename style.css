@@ -11,7 +11,7 @@ body {
 
 h1, h2, h3, h4 {
   font-family: 'Georgia', serif;
-  margin-top: 10px;    /* Reduces space above */
+  margin-top: 5px;    /* Reduces space above */
   margin-bottom: 5px;  /* Reduces space below */
 }
 
