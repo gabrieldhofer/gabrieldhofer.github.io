@@ -50,7 +50,7 @@
 <div id="backtesting" class="tabcontent">
   <h2>Backtesting System with Apache Spark</h2>
 
-  <h3>Architecture Overview</h3>
+  <h3>1. Architecture Overview</h3>
   <p>
     <!-- <u>Architecture Overview:</u><br> -->
     <b>1.</b> The main program calls <code>benchmark</code>.<br>
@@ -60,10 +60,10 @@
     <b>5.</b> Finally, <code>backtest</code> calculates returns and excess returns based on those BUYs/SELLs.<br><br>
   </p>
 
-  <h3>Command Line Parameters & Usage</h3>
+  <h3>2. Command Line Parameters & Usage</h3>
   Here's a great online guide to SBT: <a href="https://www.scala-sbt.org/2.x/docs/en/index.html">SBT Book</a><br>
 
-  <h4>Parameters</h4>
+  <h4>2.1 Parameters</h4>
   <p>
   <ul>
     <li><b>BatchCount:</b> number of samples</li>
@@ -72,10 +72,10 @@
   <img src="backtestingRunUtil.png" alt="backtesting Run Util file"><br>
   </p>
 
-  <h4>Compiling and running</h4>
+  <h4>2.2 Compiling and running</h4>
   <img src="compileAndRun.png" alt="backtesting compile and run file"><br>
 
-  <h3>Main</h3>
+  <h3>3. Main</h3>
   <p>
     Entry point for the program. It does the following things: <br>
     <ul>
@@ -91,7 +91,7 @@
   </p>
 
 
-  <h3>Init</h3>
+  <h3>4. Init</h3>
   <p>
     Create SparkSession and load data from file.<br>
     Load the DDL (schema) from file and store as a string.<br>
@@ -104,7 +104,7 @@
   </p>
 
 
-  <h3>Benchmark</h3>
+  <h3>5. Benchmark</h3>
   <p>
     This function simply repeats a call to <code>backtest</code>. <br><br>
     <code>batchCount</code> is the number of times that <code>backtest</code> will get invoked.<br><br>
@@ -115,7 +115,7 @@
   </p>
 
 
-  <h3>Sampling</h3>
+  <h3>6. Sampling</h3>
   <p>
     This randomly samples a slice of price data from the entire file.<br><br>
     The random seed is set with the time in nanoseconds.<br><br>
@@ -126,7 +126,7 @@
   </p>
 
 
-  <h3>Backtest</h3>
+  <h3>7. Backtest</h3>
   <p>
     <p>
       Calls the strategy on the sample data. Then calculates returns.<br>
@@ -164,7 +164,7 @@
     </details>
   </p>
 
-  <h3>TTM Squeeze Indicator Strategy</h3>
+  <h3>8. TTM Squeeze Indicator Strategy</h3>
   <p>
     <details>
       <summary>Code</summary>
@@ -174,7 +174,7 @@
   </p>
 
 
-  <h3>Sharpe & Calmar</h3>
+  <h3>9. Sharpe & Calmar</h3>
   <ol>
     <li>https://en.wikipedia.org/wiki/Sharpe_ratio</li>
     <li>https://en.wikipedia.org/wiki/Calmar_ratio</li>
