@@ -64,7 +64,7 @@
   </p>
 
   <h3>2. Command Line Parameters & Usage</h3>
-  <p>
+  <div>
     Here's a great online guide to SBT: <a href="https://www.scala-sbt.org/2.x/docs/en/index.html">SBT Book</a><br>
     <h4>2.1 Parameters</h4>
     <p>
@@ -77,10 +77,10 @@
 
     <h4>2.2 Compiling and running</h4>
     <img src="compileAndRun.png" alt="backtesting compile and run file"><br>
-  </p>
+  </div>
 
   <h3>3. Main</h3>
-  <p>
+  <div>
     Entry point for the program. It does the following things: <br>
     <ul>
       <li>parses command line arguments</li>
@@ -92,11 +92,11 @@
       <summary>Code</summary>
       <img src="backtestingMain.png" alt="backtesting main file">
     </details>
-  </p>
+  </div>
 
 
   <h3>4. Init</h3>
-  <p>
+  <div>
     Create SparkSession and load data from file.<br>
     Load the DDL (schema) from file and store as a string.<br>
     The Spark Window object allows us to add a row number column to the dataframe.<br>
@@ -105,33 +105,33 @@
       <summary>Code</summary>
       <img src="backtestingInit.png" alt="backtesting init file">
     </details>
-  </p>
+  </div>
 
 
   <h3>5. Benchmark</h3>
-  <p>
+  <div>
     This function simply repeats a call to <code>backtest</code>. <br><br>
     <code>batchCount</code> is the number of times that <code>backtest</code> will get invoked.<br><br>
     <details>
       <summary>Code</summary>
       <img src="backtestingBenchmark.png" alt="backtesting benchmark file">
     </details>
-  </p>
+  </div>
 
 
   <h3>6. Sampling</h3>
-  <p>
+  <div>
     This randomly samples a slice of price data from the entire file.<br><br>
     The random seed is set with the time in nanoseconds.<br><br>
     <details>
       <summary>Code</summary>
       <img src="backtestingSample.png" alt="backtesting sample file">
     </details>
-  </p>
+  </div>
 
 
   <h3>7. Backtest</h3>
-  <p>
+  <div>
     <p>
       Calls the strategy on the sample data. Then calculates returns.<br>
       Here are the common table expression steps in <code>calcReturns</code>:<br>
@@ -166,16 +166,16 @@
       <summary>Code</summary>
       <img src="backtestingBacktest.png" alt="backtesting backtest file">
     </details>
-  </p>
+  </div>
 
   <h3>8. TTM Squeeze Indicator Strategy</h3>
-  <p>
+  <div>
     <details>
       <summary>Code</summary>
       <!-- <p>This is the hidden content that appears when expanded.</p> -->
       <img src="backtestingTtmSqueeze.png" alt="backtesting ttm squeeze file">
     </details>
-  </p>
+  </div>
 
 
   <h3>9. Sharpe & Calmar</h3>

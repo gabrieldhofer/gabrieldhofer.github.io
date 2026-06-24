@@ -19,6 +19,10 @@ p {
   margin-left: 25px; /* Can use px, em, rem, or % */
 }
 
+div {
+  margin-left: 25px; /* Can use px, em, rem, or % */
+}
+
 details {
   border: 1px solid #707070; /* 1px creates a crisp, thin line */
   padding: 10px;          /* Adds breathing room inside the border */
