@@ -54,7 +54,10 @@
     <li><a href="#arch">Architecture</a></li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#main">Main</a></li>
-    <li></li>
+    <li><a href="#init">Init</a></li>
+    <li><a href="#bench">Benchmark</a></li>
+    <li><a href="#sampling">Sampling</a></li>
+    <li><a href="#backtest">Backtest</a></li>
   </ol>
 
 
@@ -85,8 +88,9 @@
   </div>
 
   <h3 id="main">3. Main</h3>
-  <div>
-    Entry point for the program. It does the following things: <br>
+    <p>
+      Entry point for the program. It does the following things: <br>
+    </p>
     <ul>
       <li>parses command line arguments</li>
       <li>creates the Spark Session</li>
@@ -96,11 +100,9 @@
       <summary>Code</summary>
       <img src="backtestingMain.png" alt="backtesting main file">
     </details>
-  </div>
 
 
   <h3 id="init">4. Init</h3>
-  <div>
     <ol>
       <li>Create SparkSession and load data from file.</li>
       <li>Load the DDL (schema) from file and store as a string.</li>
@@ -111,7 +113,6 @@
       <summary>Code</summary>
       <img src="backtestingInit.png" alt="backtesting init file">
     </details>
-  </div>
 
 
   <h3 id="bench">5. Benchmark</h3>
@@ -127,7 +128,7 @@
 
   <h3 id="sampling">6. Sampling</h3>
   <div>
-    This randomly samples a slice of price data from the entire file.<br><br>
+    This randomly samples a slice of price data from the entire file.<br>
     The random seed is set with the time in nanoseconds.<br><br>
     <details>
       <summary>Code</summary>
