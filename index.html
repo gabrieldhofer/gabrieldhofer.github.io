@@ -178,16 +178,28 @@
   <h3>8. TTM Squeeze Indicator Strategy</h3>
 
   <ol>
-    <li><u><code>movingAvg</code></u></li>
-    <li><u><code>stddev</code></u></li>
-    <li><u><code>bollinger</code></u></li>
-    <li><u><code>atr</code></u></li>
+    <li>
+      <u><code>movingAvg</code></u>&xrarr; calculated with AVG window function
+    </li>
+    <li>
+      <u><code>stddev</code></u>&xrarr; calculated with STDDEV_POP window function
+    </li>
+    <li>
+      <u><code>bollinger</code></u>&xrarr; calculates both upper and lower bands based on moving average and stddev
+    </li>
+    <li>
+      <u><code>atr</code></u>&xrarr; average true range - greatest value among these:<br>
+      <ul>
+        <li>high - low</li>
+        <li>abs(high - previous close)</li>
+        <li>abs(low - previous close)</li>
+      </ul>
+    </li>
     <li><u><code>keltner</code></u></li>
     <li><u><code>barValue</code></u></li>
     <li><u><code>squeeze</code></u></li>
     <li><u><code>orderAction</code></u></li>
   </ol>
-
 
   <div>
     <details>
