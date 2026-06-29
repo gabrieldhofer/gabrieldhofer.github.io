@@ -195,9 +195,15 @@
         <li>abs(low - previous close)</li>
       </ul>
     </li>
-    <li><u><code>keltner</code></u></li>
-    <li><u><code>barValue</code></u></li>
-    <li><u><code>squeeze</code></u></li>
+    <li><u><code>keltner</code></u>&xrarr; upper and lower bands:<br> 
+      <ul>
+        <li>midline = avg(close)</li>
+        <li>upper = midline + mult*atr</li>
+        <li>lower = midline - mult*atr</li>
+      </u>
+    </li>
+    <li><u><code>barValue</code></u>&xrarr; donchain</li>
+    <li><u><code>squeeze</code></u>&xrarr; when bollinger is between keltner channels</li>
     <li><u><code>orderAction</code></u></li>
   </ol>
 
