@@ -13,9 +13,79 @@
 <div class="tab">
   <button class="tablinks" onclick="openCity(event, 'backtesting')"id="defaultOpen">Backtesting System (in Spark SQL)</button>
   <button class="tablinks" onclick="openCity(event, 'gradient-descent-postgres')">Gradient Descent (in Postgres)</button>
+  <button class="tablinks" onclick="openCity(event, 'spark-prep')">Spark Cert Prep - July 1</button>
   <button class="tablinks" onclick="openCity(event, 'backtesting2')">Backtesting System (in Postgres)</button>
   <button class="tablinks" onclick="openCity(event, 'project-overview') ">Overview</button>
 </div>
+
+<!-- ********************************************************************** -->
+<div id="spark-prep" class="tabcontent">
+  <h3>Apache Spark Certification Prep</h3>
+  <br>
+  <h4>Question 1</h4>
+    Which of the following components in an Apache Spark cluster is responsible <br>
+    for creating the SparkSession, scheduling execution graphs, and coordinating <br>
+    the distribution of tasks across executors? [1]
+  <details>
+    <summary>answer</summary>
+    <p>
+      <b>drive node</b>
+    </p>
+    The driver node 
+    <ol>
+      <li>runs the main() program, creates the SparkSession,</li>
+      <li>translates user code into logicall/physical execution plans,</li> 
+      <li>and schedules tasks across workers</li>
+    </ol>
+  </details>
+  <br>
+
+  <h4>Question 2</h4>
+    Which of the following operations is categorized as a wide transformation, <br>
+    requiring a shuffle of data across the network? [1]
+  <details>
+    <summary>answer</summary>
+    <p>
+      <b>groupBy()</b>
+    </p>
+    Grouping data requires aggregating records with identical keys across all <br>
+    partitions, necessitating an expensive shuffle operation across the network.<br>
+  </details>
+  <br>
+
+
+  <h4>Question 3</h4>
+    3. Consider the following PySpark code block:<br>
+    <pre><code>
+      df = spark.read.csv("data.csv")
+      df2 = df.filter("age > 21")
+      df3 = df2.select("name", "age")
+    </pre></code>
+      How many Spark jobs are triggered by executing this code block? [1]
+  <details>
+    <summary>answer</summary>
+    <p>
+      <b>0</b>
+    </p>
+    Spark evaluates transformations lazily. Reading schema (unless explicitly <br>
+    forces by format discovery), filtering, and selecting columns are all <br>
+    transformations, so no actual computation job is triggered until an action is called.<br>
+  </details>
+  <br>
+
+  <hr>
+  [1] ".please generate a practice exam for the databricks certified associate developer <br>
+  for apache spark - 10 questions long" Gemini, version (if known), Google, July 1, 2026, <br>
+  https://gemini.google.com/app.<br>
+
+
+</div>
+
+
+
+
+
+
 
 
 <!-- ********************************************************************** -->
