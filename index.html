@@ -14,10 +14,33 @@
   <button class="tablinks" onclick="openCity(event, 'backtesting')"id="defaultOpen">Backtesting System (in Spark SQL)</button>
   <button class="tablinks" onclick="openCity(event, 'gradient-descent-postgres')">Gradient Descent (in Postgres)</button>
   <button class="tablinks" onclick="openCity(event, 'spark-prep')">Spark Cert Prep - July 1</button>
+  <button class="tablinks" onclick="openCity(event, 'spark-with-psql')">Implementing Spark concepts in Psql</button>
   <button class="tablinks" onclick="openCity(event, 'backtesting2')">Backtesting System (in Postgres)</button>
   <button class="tablinks" onclick="openCity(event, 'project-overview') ">A Database From Scratch</button>
 </div>
 
+
+<!-- ********************************************************************** -->
+<!-- ********************************************************************** -->
+<div id="spark-with-psql" class="tabcontent">
+
+  <h4>Overview</h4>
+  We are interested in implementing Apache Spark concepts in PSQL (intent: fun and education).
+
+  <h4>Citations</h4>
+  1. <i>The Apache Software Foundation. (2026). Apache Spark [Software]. Available from https://spark.apache.org/</i><br>
+  2. <i>The PostgreSQL Global Development Group. (Year). PostgreSQL [Version Number] documentation</i>
+
+  <h4>Postgres - Intro to <code>LISTEN</code> / <code>NOTIFY</code></h4>
+  https://www.postgresql.org/docs/current/sql-listen.html<br>
+  https://www.postgresql.org/docs/current/sql-notify.html<br>
+  https://www.baeldung.com/java-postgresql-listen-notify-events<br>
+
+
+</div>
+
+
+<!-- ********************************************************************** -->
 <!-- ********************************************************************** -->
 <div id="spark-prep" class="tabcontent">
   <h3>Apache Spark Certification Prep</h3>
@@ -78,11 +101,10 @@
   [1] ".please generate a practice exam for the databricks certified associate developer <br>
   for apache spark - 10 questions long" Gemini, version (if known), Google, July 1, 2026, <br>
   https://gemini.google.com/app.<br>
-
-
 </div>
 
 
+<!-- ********************************************************************** -->
 <!-- ********************************************************************** -->
 <div id="gradient-descent-postgres" class="tabcontent">
   <h2>Implementing Gradient Descent with SQL</h2>
@@ -109,9 +131,10 @@
   https://neon.com/postgresql/plpgsql/create-function#introduction-to-create-function-statement
   <br>
   <img src="./grad_desc_sql/createFunction.png" alt="todo"><br>
-
 </div>
 
+
+<!-- ********************************************************************** -->
 <!-- ********************************************************************** -->
 <div id="backtesting" class="tabcontent">
   <h3>A Backtesting System with Apache Spark</h3>
@@ -287,9 +310,10 @@
     <li>https://en.wikipedia.org/wiki/Calmar_ratio</li>
   <ol> 
   <br>
-
 </div>
 
+
+<!-- ********************************************************************** -->
 <!-- ********************************************************************** -->
 <!-- TODO: import this div from another file -->
 <div id="project-overview" class="tabcontent">
