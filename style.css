@@ -37,6 +37,7 @@ details {
   background-color: #f1f1f1;
   width: 15%;
   height: 200px;
+  border-radius: 0 12px 12px 0;
 }
 
 code {
@@ -56,6 +57,7 @@ code {
   cursor: pointer;
   transition: 0.3s;
   font-size: 14px;
+  border-radius: 0 12px 12px 0;
 }
 
 /* Change background color of buttons on hover */
