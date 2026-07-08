@@ -18,7 +18,7 @@
   <button class="tablinks" onclick="openCity(event, 'backtesting')"id="defaultOpen">Backtesting System (in Spark SQL)</button>
   <button class="tablinks" onclick="openCity(event, 'gradient-descent-postgres')">Gradient Descent (with Postgres)</button>
   <button class="tablinks" onclick="openCity(event, 'spark-prep')">Spark Cert Prep - July 1</button>
-  <button class="tablinks" onclick="openCity(event, 'spark-with-psql')">Implementing Spark concepts in Psql</button>
+  <button class="tablinks" onclick="openCity(event, 'spark-with-psql')">Simulating Spark concepts in Psql</button>
   <button class="tablinks" onclick="openCity(event, 'backtesting2')">Backtesting System (with Postgres)</button>
   <button class="tablinks" onclick="openCity(event, 'project-overview') ">A Database From Scratch</button>
 </div>
@@ -29,7 +29,7 @@
 <div id="spark-with-psql" class="tabcontent">
 
   <h4>Overview</h4>
-  We are interested in implementing Apache Spark concepts in PSQL (intent: fun and education).
+  We are interested in simulating/implementing Apache Spark concepts in PSQL (intent: fun and education).
 
   <h4>Citations</h4>
   1. <i>The Apache Software Foundation. (2026). Apache Spark [Software]. Available from https://spark.apache.org/</i><br>
@@ -40,7 +40,14 @@
   https://www.postgresql.org/docs/current/sql-notify.html<br>
   https://www.baeldung.com/java-postgresql-listen-notify-events<br>
 
-
+  <h4>Ideas</h4>
+  - RDDs<br>
+  - Partitioner object<br>
+  - Triggers as Driver <br>
+  - Main table for the Driver program <br>
+  - partitioner procedure to distribute records across smaller "executor" tables<br>
+  - an operations table that is linked to a data table<br>
+    - can help with laziness<br> 
 </div>
 
 
