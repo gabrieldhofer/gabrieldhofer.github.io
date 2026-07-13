@@ -42,7 +42,23 @@
 
 <div id="coalesce-vs-repartition" class="tabcontent">
 
-  <h4>Spark <code>Coalesce</code> vs. <code>Repartition</code></h4>
+  <h4>Spark <code>coalesce</code> vs. <code>repartition</code></h4>
+
+<h4>Use coalesce when:</h4>
+<ul>
+<li>You are decreasing partitions: For example, after filtering a massive dataset down to a tiny fraction, you might have 1,000 partitions holding almost no data. Using coalesce(10) before writing to disk prevents creating thousands of tiny files.</li>
+
+<li>You want to save network I/O: When performance is a bottleneck and a perfect, uniform distribution of data isn't strictly necessary for the next step.</li>
+</ul>
+
+<h4>Use repartition when:</h4>
+<ul>
+<li>You are increasing partitions: If you start with 2 partitions but have 16 cores available, coalesce(16) won't work (it cannot increase partitions). You must use repartition(16) to utilize all cores.</li>
+
+<li>You have severe data skew: If a few partitions are massive and holding up your job, repartition will evenly distribute the rows across the cluster.</li>
+
+<li>You want to partition by a specific column: If you frequently join or filter by a specific key (e.g., df.repartition($"department_id")), repartitioning by that key up front can speed up downstream operations.</li>
+</ul>
 
   <style type="text/css">
   .tg  {border-collapse:collapse;border-spacing:0;}
