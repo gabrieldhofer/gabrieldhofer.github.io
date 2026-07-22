@@ -39,6 +39,66 @@
 
 <div id="join-strategies" class="tabcontent">
   <h4>Spark Notes: Join Strategies</h4>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-1wig{font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-mjdq{background-color:#ffce93;border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-dfcp{background-color:#ffce93;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg"><thead>
+  <tr>
+    <th class="tg-mjdq">Join Strategy</th>
+    <th class="tg-mjdq">How it Works</th>
+    <th class="tg-mjdq">Best Use Case</th>
+    <th class="tg-dfcp">Pros</th>
+    <th class="tg-dfcp">Cons</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td class="tg-fymr">Broadcast Hash Join (BHJ)</td>
+    <td class="tg-0pky">Copies the smaller dataset to all worker nodes; completely avoids shuffling.</td>
+    <td class="tg-0pky">One massive table joined with one tiny table (&lt;10MB by default).</td>
+    <td class="tg-0lax">Extremely fast; zero network shuffle of the large table.</td>
+    <td class="tg-0lax">Can cause Out of Memory (OOM) errors on the driver or executors if the "small" table is too large.</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">Shuffle Hash Join (SHJ)</td>
+    <td class="tg-0pky">Shuffles data by join key, then builds an in-memory hash table for each partition of the smaller dataset.</td>
+    <td class="tg-0pky">Large tables where data is evenly distributed, but one is still significantly smaller.</td>
+    <td class="tg-0lax">Faster than Sort Merge Join if the data doesn't require sorting.</td>
+    <td class="tg-0lax">Risk of OOM if a single partition's hash table exceeds executor memory (data skew).</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">Sort Merge Join (SMJ)</td>
+    <td class="tg-0pky">Shuffles data, sorts it by the join key on each partition, and then merges the sorted datasets.</td>
+    <td class="tg-0pky">Two massive datasets.</td>
+    <td class="tg-0lax">Highly robust and scalable; safely spills to disk if it runs out of memory.</td>
+    <td class="tg-0lax">Very heavy on network and disk I/O due to the shuffle and sort phases.</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">Broadcast Nested Loop Join (BNLJ)</td>
+    <td class="tg-0pky">Broadcasts one dataset and loops through it for every single row in the other dataset.</td>
+    <td class="tg-0pky">Non-equality joins (e.g., &lt;, &gt;) involving at least one small table.</td>
+    <td class="tg-0lax">Works for arbitrary, complex join conditions.</td>
+    <td class="tg-0lax">Extremely slow ($O(M \times N)$ complexity).</td>
+  </tr>
+  <tr>
+    <td class="tg-1wig">Cartesian Product Join</td>
+    <td class="tg-0lax">Evaluates every row of Table A against every row of Table B.</td>
+    <td class="tg-0lax">Explicit CROSS JOIN operations where no join key exists.</td>
+    <td class="tg-0lax">Gives a true Cartesian product.</td>
+    <td class="tg-0lax">Terrible performance; scales exponentially and can easily crash clusters.</td>
+  </tr>
+</tbody></table>
+
 </div>
 
 <div id="shuffle-configs" class="tabcontent">
