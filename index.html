@@ -20,6 +20,7 @@
   <button class="tablinks" onclick="openCity(event, 'coalesce-vs-repartition') ">Coalesce vs. Repartition</button>
   <button class="tablinks" onclick="openCity(event, 'join-strategies') ">Spark Join Strategies</button>
   <button class="tablinks" onclick="openCity(event, 'cache-vs-persist') ">Cache vs. Persist</button>
+  <button class="tablinks" onclick="openCity(event, 'shuffle-configs') ">Shuffle Configs</button>
   <button class="tablinks" onclick="openCity(event, 'tour-of-methods-in-spark') ">Tour of Methods in Spark</button>
   <button class="tablinks" onclick="openCity(event, 'spark-configs') ">Spark Configs</button>
   <button class="tablinks" onclick="openCity(event, 'spark-prep')">Spark Cert Prep - July 1</button>
@@ -32,10 +33,6 @@
   <h4>Tour of methods in Spark</h4>
 </div>
 
-<div id="spark-configs" class="tabcontent">
-  <h4>Spark Notes: Configurations</h4>
-</div>
-
 <div id="cache-vs-persist" class="tabcontent">
   <h4>Spark Notes: <code>cache</code> vs <code>persist</code></h4>
 </div>
@@ -43,6 +40,175 @@
 <div id="join-strategies" class="tabcontent">
   <h4>Spark Notes: Join Strategies</h4>
 </div>
+
+<div id="shuffle-configs" class="tabcontent">
+  <h4>Spark Notes: Shuffle Configs</h4>
+
+<h4>1. Partitioning & Parallelism</h4>
+These settings dictate how many parallel tasks Spark creates and how data is sliced during processing.
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-mjdq{background-color:#ffce93;border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg"><thead>
+  <tr>
+    <th class="tg-mjdq">Configuration</th>
+    <th class="tg-mjdq">Default</th>
+    <th class="tg-mjdq">Recommendation / Description</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td class="tg-fymr">spark.default.parallelism</td>
+    <td class="tg-0pky">Total cores across cluster</td>
+    <td class="tg-0pky">Default partition count for raw RDDs, join(), groupByKey(), etc. Set this to 2–4× total executor cores.</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">spark.sql.shuffle.partitions</td>
+    <td class="tg-0pky">200</td>
+    <td class="tg-0pky">Controls default partition count during SQL/DataFrame shuffle operations (JOIN, GROUP BY). Increase for large datasets ($&gt;100\text{ GB}$); decrease for small datasets ($&lt;10\text{ GB}$).</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">spark.sql.files.maxPartitionBytes</td>
+    <td class="tg-0pky">134217728 (128 MB)</td>
+    <td class="tg-0pky">Maximum bytes to read into a single partition when reading file sources. Lowering this increases parallelism on input reads.</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">spark.sql.files.minPartitionNum</td>
+    <td class="tg-0pky">Default parallelism</td>
+    <td class="tg-0pky">Suggested minimum partition count when reading file sources.</td>
+  </tr>
+</tbody></table>
+
+<h4>2. Shuffle Performance & Memory Management</h4>
+Shuffling transfers data across nodes over the network. Optimizing these properties helps avoid disk spill, network bottlenecks, and OutOfMemoryError (OOM).
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-mjdq{background-color:#ffce93;border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg"><thead>
+  <tr>
+    <th class="tg-mjdq">Configuration</th>
+    <th class="tg-mjdq">Default</th>
+    <th class="tg-mjdq">Recommendation / Description</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td class="tg-fymr">spark.shuffle.file.buffer</td>
+    <td class="tg-0pky">32k</td>
+    <td class="tg-0pky">In-memory buffer size for each shuffle output stream before writing to disk. Bump to 64k or 128k to reduce disk I/O on large cluster jobs.</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">spark.reducer.maxSizeInFlight</td>
+    <td class="tg-0pky">48m</td>
+    <td class="tg-0pky">Maximum size of shuffle data requested per reduce task simultaneously. Increase to 96m or 128m if network bandwidth is high.</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">spark.shuffle.compress</td>
+    <td class="tg-0pky">true</td>
+    <td class="tg-0pky">Compresses shuffle output files (uses LZ4 by default). Keeps network and disk usage lower.</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">spark.shuffle.spill.compress</td>
+    <td class="tg-0pky">true</td>
+    <td class="tg-0pky">Compresses data spilled to disk during shuffles.</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">spark.shuffle.service.enabled</td>
+    <td class="tg-0lax">false</td>
+    <td class="tg-0lax">Enables the External Shuffle Service. Crucial when using Dynamic Allocation so executors can be safely decommissioned while keeping shuffle files alive.</td>
+  </tr>
+</tbody></table>
+
+<h4>3. Adaptive Query Execution (AQE)</h4>
+Introduced in Spark 3, AQE dynamically optimizes shuffle partitions and joins at runtime based on actual stage metrics.
+
+
+
+
+</div>
+
+
+
+
+
+<div id="spark-configs" class="tabcontent">
+  <h4>Spark Notes: Configurations</h4>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-mjdq{background-color:#ffce93;border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg"><thead>
+  <tr>
+    <th class="tg-mjdq">Configuration Name</th>
+    <th class="tg-mjdq">Default Value</th>
+    <th class="tg-mjdq">Description / Usage</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td class="tg-fymr">spark.sql.shuffle.partitions</td>
+    <td class="tg-0pky">200</td>
+    <td class="tg-0pky">Controls the number of partitions created after a shuffle operation (e.g., groupBy, join, distinct) on DataFrames/Datasets.</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">spark.default.parallelism</td>
+    <td class="tg-0pky">Core Count</td>
+    <td class="tg-0pky">Controls default partitions for wide transformations on low-level RDDs. Ignored by DataFrames/DataSets.</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">spark.sql.adaptive.enabled</td>
+    <td class="tg-0pky">true (Spark 3.0+)</td>
+    <td class="tg-0pky">Enables Adaptive Query Execution (AQE), which dynamically adjusts shuffle partition counts during runtime.</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">spark.sql.adaptive.advisoryPartitionSizeInBytes</td>
+    <td class="tg-0pky">64MB</td>
+    <td class="tg-0pky">Target partition size used by AQE when coalescing or splitting shuffle partitions.</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">spark.sql.adaptive.coalescePartitions.enabled</td>
+    <td class="tg-0pky">true</td>
+    <td class="tg-0pky">When AQE is enabled, Spark merges small adjacent shuffle partitions into larger ones based on the advisory size.</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">spark.sql.adaptive.skewJoin.enabled</td>
+    <td class="tg-0pky">true</td>
+    <td class="tg-0pky">Enables automatic handling of skewed data during shuffle joins by splitting large skewed partitions into smaller ones.</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">spark.shuffle.file.buffer</td>
+    <td class="tg-0pky">32k</td>
+    <td class="tg-0pky">The size of the in-memory buffer used by each shuffle writer before dumping data to disk. Increasing this (e.g., to 64k/128k) reduces disk I/O for large shuffles.</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">spark.reducer.maxSizeInFlight</td>
+    <td class="tg-0pky">48m</td>
+    <td class="tg-0pky">The maximum size of shuffle data fetched by a reducer at once from other executors.</td>
+  </tr>
+</tbody></table>
+</div>
+
 
 <!-- ********************************************************************** -->
 <!-- ********************************************************************** -->
