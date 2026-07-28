@@ -24,6 +24,7 @@
   <button class="tablinks" onclick="openCity(event, 'tour-of-methods-in-spark') ">Tour of Methods in Spark</button>
   <button class="tablinks" onclick="openCity(event, 'spark-configs') ">Spark Configs</button>
   <button class="tablinks" onclick="openCity(event, 'spark-mem-manage') ">Spark Memory Configs</button>
+  <button class="tablinks" onclick="openCity(event, 'spark-execution')">Jobs, Stages, Tasks</button>
   <button class="tablinks" onclick="openCity(event, 'spark-prep')">Spark Cert Prep - July 1</button>
   <button class="tablinks" onclick="openCity(event, 'spark-with-psql')">Simulating Spark concepts in Psql</button>
   <button class="tablinks" onclick="openCity(event, 'backtesting2')">Backtesting System (with Postgres)</button>
@@ -167,6 +168,58 @@
   <br><br>
 
 </div>
+
+<div id="spark-execution" class="tabcontent">
+  <h4>Tour of methods in Spark</h4>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-mjdq{background-color:#ffce93;border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-dfcp{background-color:#ffce93;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg"><thead>
+  <tr>
+    <th class="tg-mjdq">Concept</th>
+    <th class="tg-mjdq">Trigger / Definition</th>
+    <th class="tg-mjdq">Scale</th>
+    <th class="tg-dfcp">Key Characteristic</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td class="tg-fymr">Application</td>
+    <td class="tg-0pky">Submitted code execution</td>
+    <td class="tg-0pky">$1$ Application</td>
+    <td class="tg-0lax">Contains driver and executor contexts</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">Job</td>
+    <td class="tg-fymr">Invocation of an Action</td>
+    <td class="tg-fymr">$1+$ per Application</td>
+    <td class="tg-0lax">Evaluates the computation DAG</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">Stage</td>
+    <td class="tg-0pky">Split at Shuffle Boundaries</td>
+    <td class="tg-0pky">$1+$ per Job</td>
+    <td class="tg-0lax">Group of pipelined transformations</td>
+  </tr>
+  <tr>
+    <td class="tg-fymr">Task</td>
+    <td class="tg-0pky">Operates on $1$ Data Partition</td>
+    <td class="tg-0pky">$1+$ per Stage</td>
+    <td class="tg-0lax">Distributed to executor CPU slots</td>
+  </tr>
+</tbody></table>
+</div>
+
+
+
 
 <div id="tour-of-methods-in-spark" class="tabcontent">
   <h4>Tour of methods in Spark</h4>
