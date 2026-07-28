@@ -49,7 +49,6 @@
       <th class="tg-mjdq">Default Value</th>
       <th class="tg-mjdq">Target / Scope</th>
       <th class="tg-mjdq">Description &amp; Impact</th>
-      <th class="tg-mjdq"></th>
     </tr></thead>
   <tbody>
     <tr>
@@ -57,77 +56,66 @@
       <td class="tg-0pky">1g</td>
       <td class="tg-0pky">Executor Heap</td>
       <td class="tg-0pky">Total amount of JVM heap memory allocated per executor process.</td>
-      <td class="tg-0pky"></td>
     </tr>
     <tr>
       <td class="tg-fymr">spark.driver.memory</td>
       <td class="tg-0pky">1g</td>
       <td class="tg-0pky">Driver Heap</td>
       <td class="tg-0pky">Total amount of JVM heap memory allocated for the driver process.</td>
-      <td class="tg-0pky"></td>
     </tr>
     <tr>
       <td class="tg-fymr">spark.memory.fraction</td>
       <td class="tg-0pky">0.6 (60%)</td>
       <td class="tg-0pky">JVM Heap</td>
       <td class="tg-0pky">Fraction of usable heap space (spark.executor.memory - 300MB) allocated for Unified Memory (Execution + Storage). The remaining 0.4 (40%) is reserved for User Memory (UDFs, user custom objects, lineage metadata).</td>
-      <td class="tg-0pky"></td>
     </tr>
     <tr>
       <td class="tg-fymr">spark.memory.storageFraction</td>
       <td class="tg-0pky">0.5 (50%)</td>
       <td class="tg-0pky">Unified Memory Pool</td>
       <td class="tg-0pky">Fraction of unified memory protected from eviction by execution. Controls the storage floor for cached data (DataFrame/RDD .cache()).</td>
-      <td class="tg-0pky"></td>
     </tr>
     <tr>
       <td class="tg-fymr">spark.memory.offHeap.enabled</td>
       <td class="tg-0pky">false</td>
       <td class="tg-0pky">Executor / Driver</td>
       <td class="tg-0pky">Enables off-heap memory allocation for Spark execution and storage to bypass JVM garbage collection (GC).</td>
-      <td class="tg-0pky"></td>
     </tr>
     <tr>
       <td class="tg-fymr">spark.memory.offHeap.size</td>
       <td class="tg-0pky">0 (disabled)</td>
       <td class="tg-0pky">Off-Heap Pool</td>
       <td class="tg-0pky">Total amount of off-heap memory (in bytes or units like 2g, 4g) dedicated to off-heap execution/storage when offHeap.enabled=true.</td>
-      <td class="tg-0pky"></td>
     </tr>
     <tr>
       <td class="tg-fymr">spark.executor.memoryOverhead</td>
       <td class="tg-0pky">max(384MB, 0.10 * executorMemory)</td>
       <td class="tg-0pky">Container Overhead</td>
       <td class="tg-0pky">Non-heap memory requested per executor container. Covers OS overhead, JVM internal overhead, thread stacks, C/C++ native libraries, and PySpark/Numpy memory when PySpark memory is not explicitly set.</td>
-      <td class="tg-0pky"></td>
     </tr>
     <tr>
       <td class="tg-fymr">spark.driver.memoryOverhead</td>
       <td class="tg-0pky">max(384MB, 0.10 * driverMemory)</td>
       <td class="tg-0pky">Container Overhead</td>
       <td class="tg-0pky">Non-heap memory allocated for the driver container (YARN / K8s).</td>
-      <td class="tg-0pky"></td>
     </tr>
     <tr>
       <td class="tg-fymr">spark.executor.pyspark.memory</td>
       <td class="tg-0pky">0 (Not set)</td>
       <td class="tg-0pky">Python Worker</td>
       <td class="tg-0pky">Dedicated off-heap memory allocated for PySpark worker processes (Python/NumPy/Pandas objects) per executor. Exceeding this triggers OS/container kill (OOMKilled).</td>
-      <td class="tg-0pky"></td>
     </tr>
     <tr>
       <td class="tg-fymr">spark.kubernetes.memoryOverheadFactor</td>
       <td class="tg-0pky">0.10 (10%)</td>
       <td class="tg-0pky">Kubernetes Deployment</td>
       <td class="tg-0pky">The multiplier applied to driver/executor heap memory to compute default memory overhead on Kubernetes clusters.</td>
-      <td class="tg-0pky"></td>
     </tr>
     <tr>
       <td class="tg-fymr">spark.memory.useLegacyMode</td>
       <td class="tg-0pky">false</td>
       <td class="tg-0pky">Legacy Manager</td>
       <td class="tg-0pky">If set to true, enables pre-Spark 1.6 StaticMemoryManager (hard-partitioned execution and storage pools) instead of UnifiedMemoryManager. (Deprecated / discouraged).</td>
-      <td class="tg-0pky"></td>
     </tr>
   </tbody></table>
 
