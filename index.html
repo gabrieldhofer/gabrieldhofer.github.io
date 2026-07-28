@@ -30,6 +30,7 @@
   <button class="tablinks" onclick="openCity(event, 'project-overview') ">A Database From Scratch</button>
 </div>
 
+
 <div id="spark-mem-manage" class="tabcontent">
   <h4>Spark Memory Management</h4>
 
@@ -118,6 +119,52 @@
       <td class="tg-0pky">If set to true, enables pre-Spark 1.6 StaticMemoryManager (hard-partitioned execution and storage pools) instead of UnifiedMemoryManager. (Deprecated / discouraged).</td>
     </tr>
   </tbody></table>
+
+  <h4>Off Heap vs. Overhead</h4>
+  <style type="text/css">
+  .tg  {border-collapse:collapse;border-spacing:0;}
+  .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+    overflow:hidden;padding:10px 5px;word-break:normal;}
+  .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+    font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+  .tg .tg-mjdq{background-color:#ffce93;border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+  .tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+  .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+  </style>
+  <table class="tg"><thead>
+    <tr>
+      <th class="tg-mjdq">Feature</th>
+      <th class="tg-mjdq">spark.memory.offHeap.size</th>
+      <th class="tg-mjdq">spark.executor.memoryOverhead</th>
+    </tr></thead>
+  <tbody>
+    <tr>
+      <td class="tg-fymr">Primary Purpose</td>
+      <td class="tg-0pky">Internal Spark query execution and data caching (Project Tungsten).</td>
+      <td class="tg-0pky">Non-JVM overhead, native libraries, thread stacks, and OS/container buffers.</td>
+    </tr>
+    <tr>
+      <td class="tg-fymr">Management</td>
+      <td class="tg-fymr">Managed directly by Spark via Unsafe memory allocators to bypass JVM GC.</td>
+      <td class="tg-fymr">Unmanaged by Spark; used by JVM internal processes and native C/C++ code.</td>
+    </tr>
+    <tr>
+      <td class="tg-fymr">GC Impact</td>
+      <td class="tg-0pky">Avoids Garbage Collection overhead while storing Spark execution/storage data.</td>
+      <td class="tg-0pky">Fully invisible to GC; managed by OS and JVM internals.</td>
+    </tr>
+    <tr>
+      <td class="tg-fymr">Use Cases</td>
+      <td class="tg-0pky">Large joins, aggregations, off-heap caching, heavy DataFrame/Dataset workloads.</td>
+      <td class="tg-0pky">PySpark (Python worker memory), JNI/C++ libraries, high thread counts, Metaspace.</td>
+    </tr>
+    <tr>
+      <td class="tg-fymr">Default Value</td>
+      <td class="tg-0pky">0 (Disabled via spark.memory.offHeap.enabled=false)</td>
+      <td class="tg-0pky">max(384MB, 0.10 * spark.executor.memory)</td>
+    </tr>
+  </tbody></table>
+  <br><br>
 
 </div>
 
